@@ -737,7 +737,7 @@ a.article-title:hover {
   font-size: 0.9em;
   margin-top: 0.5em;
   position: relative;
-  text-align: center;
+  margin-left: 8em;
 }
 .article-entry .video-container {
   position: relative;
