@@ -4,9 +4,9 @@
   <subtitle>coding for fun..</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://hanks-zyh.github.io/"/>
-  <updated>2017-03-27T02:05:42.394Z</updated>
-  <id>http://hanks-zyh.github.io/</id>
+  <link href="http://hanks.pub/"/>
+  <updated>2017-07-10T11:02:58.171Z</updated>
+  <id>http://hanks.pub/</id>
   
   <author>
     <name>Hanks</name>
@@ -16,9 +16,48 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>探究 lua 在 Android 中的应用</title>
+    <link href="http://hanks.pub/2017/04/28/lua-in-android/"/>
+    <id>http://hanks.pub/2017/04/28/lua-in-android/</id>
+    <published>2017-04-28T14:04:24.000Z</published>
+    <updated>2017-07-10T11:02:58.171Z</updated>
+    
+    <content type="html"><![CDATA[<p>根据前面的文章 <a href="http://hanks.pub/2017/01/10/android-lua/">Android 与 Lua</a> 可以大概了解 Lua 。在 Android（移动设备）中，可以通过灵活加载 Lua 脚本，使应用更加灵活，轻松面对多变的需求。luajava 在 jni 层主要实现了5个方法，借助这5个方法lua几乎可以使用所有的java类了。</p>
+<a id="more"></a>
+<h2 id="Java-和-lua-交互"><a href="#Java-和-lua-交互" class="headerlink" title="Java 和 lua 交互"></a>Java 和 lua 交互</h2><p>关于 java 和 lua 交互的大概有两个项目。<br>一个是 <a href="https://github.com/jasonsantos/luajava" target="_blank" rel="external">luajava</a>，通过 java 的 jni 功能，java 与 c 交互，然后 c 调用 lua ，延伸出来的有 <a href="https://github.com/mkottman/AndroLua" target="_blank" rel="external">AndroLua</a>。还有在 Android 平台的 lua 编辑器 <a href="https://github.com/nirenr/androlua_pro" target="_blank" rel="external">AndroLua+</a>，用来开发 Android。</p>
+<p>还有一个 <a href="http://www.luaj.org/luaj/3.0/README.html" target="_blank" rel="external">luaj</a>，纯 java 实现的 Lua 解释器，基于 Lua 5.2.x。前面介绍的 LuaSdkView 就是基于 luaj 修改的。在 lua 调用任意 java 类方面，LuaSdkView 实现了一些通用的类来创建java对象，调用方法。</p>
+<p>接下来看 luaj 的具体使用。 </p>
+<h3 id="java-调用-lua"><a href="#java-调用-lua" class="headerlink" title="java 调用 lua"></a>java 调用 lua</h3><p>hello.lua 文件</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span> <span class="string">'----hello.lua---'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">( num1, num2 )</span></span></div><div class="line">    <span class="keyword">return</span> num1 + num2</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">()</span></span></div><div class="line">    <span class="keyword">return</span> <span class="string">'hanks'</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>Test.java 文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// 加载 lua 文件</span></div><div class="line">Globals G = JsePlatform.standardGlobals();</div><div class="line">LuaValue scriptValue = G.load(<span class="string">"print 'hello, world'"</span>);</div><div class="line">scriptValue.call();<span class="comment">// 打印出 hello, world</span></div><div class="line"></div><div class="line">G.get(<span class="string">"dofile"</span>).call(LuaValue.valueOf(<span class="string">"hello.lua"</span>)); <span class="comment">// 打印出 ----hello.lua---</span></div><div class="line"></div><div class="line">LuaValue sumFuc = G.get(<span class="string">"sum"</span>);</div><div class="line">LuaValue sum = sumFuc.call(LuaValue.valueOf(<span class="number">5</span>), LuaValue.valueOf(<span class="number">3</span>));</div><div class="line">System.out.println(sum.toint()); <span class="comment">// 打印出 8</span></div><div class="line"></div><div class="line">LuaValue getNameFun = G.get(<span class="string">"getName"</span>);</div><div class="line">LuaValue name = getNameFun.call();</div><div class="line">System.out.println(name.tojstring());  <span class="comment">// 打印出 hanks</span></div></pre></td></tr></table></figure></p>
+<h3 id="lua-调用-java"><a href="#lua-调用-java" class="headerlink" title="lua 调用 java"></a>lua 调用 java</h3><p>直接调用<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">local</span> <span class="keyword">Thread</span> = luajava.bindClass(<span class="string">'java.lang.Thread'</span>)</div><div class="line">print(<span class="keyword">Thread</span>) <span class="comment">// 打印 class java.lang.Thread</span></div></pre></td></tr></table></figure></p>
+<p>定义 hyperbolic.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">hyperbolic</span> <span class="keyword">extends</span> <span class="title">TwoArgFunction</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">hyperbolic</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> LuaValue <span class="title">call</span><span class="params">(LuaValue modname, LuaValue env)</span> </span>&#123;</div><div class="line">        LuaValue library = tableOf();</div><div class="line">        library.set(<span class="string">"sinh"</span>, <span class="keyword">new</span> sinh());</div><div class="line">        library.set(<span class="string">"cosh"</span>, <span class="keyword">new</span> cosh());</div><div class="line">        env.set(<span class="string">"hyperbolic"</span>, library);</div><div class="line">        <span class="keyword">return</span> library;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">sinh</span> <span class="keyword">extends</span> <span class="title">OneArgFunction</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> LuaValue <span class="title">call</span><span class="params">(LuaValue x)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> LuaValue.valueOf(Math.sinh(x.checkdouble()));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">cosh</span> <span class="keyword">extends</span> <span class="title">OneArgFunction</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> LuaValue <span class="title">call</span><span class="params">(LuaValue x)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> LuaValue.valueOf(Math.cosh(x.checkdouble()));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>testhyperbolic.lua 进行调用</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span> <span class="string">'hyperbolic'</span></div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="string">'hyperbolic'</span>, hyperbolic)</div><div class="line"><span class="built_in">print</span>(<span class="string">'hyperbolic.sinh'</span>, hyperbolic.sinh)</div><div class="line"><span class="built_in">print</span>(<span class="string">'hyperbolic.cosh'</span>, hyperbolic.cosh)</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="string">'sinh(0.5)'</span>, hyperbolic.sinh(<span class="number">0.5</span>))</div><div class="line"><span class="built_in">print</span>(<span class="string">'cosh(0.5)'</span>, hyperbolic.cosh(<span class="number">0.5</span>))</div></pre></td></tr></table></figure>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Globals globals = JsePlatform.standardGlobals();</div><div class="line">globals.loadfile(<span class="string">"testhyperbolic.lua"</span>).<span class="built_in">call</span>();</div><div class="line"></div><div class="line">/* 打印</div><div class="line">hyperbolic  tab<span class="symbol">le:</span> <span class="number">61</span>e717c2</div><div class="line">hyperbolic.sinh functi<span class="symbol">on:</span> <span class="built_in">sinh</span></div><div class="line">hyperbolic.cosh functi<span class="symbol">on:</span> <span class="built_in">cosh</span></div><div class="line"><span class="built_in">sinh</span>(<span class="number">0.5</span>)   <span class="number">0.5210953</span></div><div class="line"><span class="built_in">cosh</span>(<span class="number">0.5</span>)   <span class="number">1.127626</span></div><div class="line">*/</div></pre></td></tr></table></figure>
+<blockquote>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;根据前面的文章 &lt;a href=&quot;http://hanks.pub/2017/01/10/android-lua/&quot;&gt;Android 与 Lua&lt;/a&gt; 可以大概了解 Lua 。在 Android（移动设备）中，可以通过灵活加载 Lua 脚本，使应用更加灵活，轻松面对多变的需求。luajava 在 jni 层主要实现了5个方法，借助这5个方法lua几乎可以使用所有的java类了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
+    
+      <category term="Lua" scheme="http://hanks.pub/tags/Lua/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Node 识别图片中的文字</title>
-    <link href="http://hanks-zyh.github.io/2017/03/26/node-image-recognition/"/>
-    <id>http://hanks-zyh.github.io/2017/03/26/node-image-recognition/</id>
+    <link href="http://hanks.pub/2017/03/26/node-image-recognition/"/>
+    <id>http://hanks.pub/2017/03/26/node-image-recognition/</id>
     <published>2017-03-26T08:53:53.000Z</published>
     <updated>2017-03-27T02:05:42.394Z</updated>
     
@@ -36,14 +75,14 @@
     </summary>
     
     
-      <category term="Node.js" scheme="http://hanks-zyh.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://hanks.pub/tags/Node-js/"/>
     
   </entry>
   
   <entry>
     <title>请求代理</title>
-    <link href="http://hanks-zyh.github.io/2017/03/22/proxy-test/"/>
-    <id>http://hanks-zyh.github.io/2017/03/22/proxy-test/</id>
+    <link href="http://hanks.pub/2017/03/22/proxy-test/"/>
+    <id>http://hanks.pub/2017/03/22/proxy-test/</id>
     <published>2017-03-22T13:10:52.000Z</published>
     <updated>2017-03-27T02:05:42.428Z</updated>
     
@@ -66,16 +105,16 @@
     </summary>
     
     
-      <category term="爬虫" scheme="http://hanks-zyh.github.io/tags/%E7%88%AC%E8%99%AB/"/>
+      <category term="爬虫" scheme="http://hanks.pub/tags/%E7%88%AC%E8%99%AB/"/>
     
-      <category term="代理" scheme="http://hanks-zyh.github.io/tags/%E4%BB%A3%E7%90%86/"/>
+      <category term="代理" scheme="http://hanks.pub/tags/%E4%BB%A3%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>Android 自定义 view 连接输入法</title>
-    <link href="http://hanks-zyh.github.io/2017/02/16/android-customview-inputmethod/"/>
-    <id>http://hanks-zyh.github.io/2017/02/16/android-customview-inputmethod/</id>
+    <link href="http://hanks.pub/2017/02/16/android-customview-inputmethod/"/>
+    <id>http://hanks.pub/2017/02/16/android-customview-inputmethod/</id>
     <published>2017-02-16T14:33:39.000Z</published>
     <updated>2017-03-27T02:05:42.045Z</updated>
     
@@ -94,18 +133,18 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
-      <category term="View" scheme="http://hanks-zyh.github.io/tags/View/"/>
+      <category term="View" scheme="http://hanks.pub/tags/View/"/>
     
   </entry>
   
   <entry>
     <title>Android 与 Lua</title>
-    <link href="http://hanks-zyh.github.io/2017/01/10/android-lua/"/>
-    <id>http://hanks-zyh.github.io/2017/01/10/android-lua/</id>
+    <link href="http://hanks.pub/2017/01/10/android-lua/"/>
+    <id>http://hanks.pub/2017/01/10/android-lua/</id>
     <published>2017-01-10T15:18:29.000Z</published>
-    <updated>2017-03-27T02:05:42.052Z</updated>
+    <updated>2017-07-10T11:02:57.974Z</updated>
     
     <content type="html"><![CDATA[<p><a href="http://www.lua.org/" target="_blank" rel="external">Lua</a>: 一种轻量语言，由标准C编写而成，体积小，启动速度快。Lua 有一个同时进行的 JIT 项目，提供在特定平台上的即时编译功能。<br><a id="more"></a><br><a href="http://www.luaj.org/luaj/3.0/README.html" target="_blank" rel="external">LuaJ</a>：<br>Luaj 是一个 Java 的 Lua 解释器，基于 Lua 5.2.x 版本，目的是：</p>
 <ul>
@@ -124,6 +163,10 @@
 <p> 下面尝试加载外部的脚本文件， 我在 sd 卡上新建了一个 <code>local.lua</code> 脚本文件<br> 内容如下<br> <figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">w,h = System.screenSize();</div><div class="line">window.frame(<span class="number">0</span>, <span class="number">0</span>, w, h);</div><div class="line">window.backgroundColor(<span class="number">0x220000</span>);</div><div class="line"></div><div class="line">label = Label();</div><div class="line">label.frame(<span class="number">16</span>,<span class="number">16</span>,w, <span class="number">60</span>);</div><div class="line">label.text(<span class="string">"Local Hello World LuaView to Android"</span>);</div></pre></td></tr></table></figure></p>
 <p> <img width="360px" src="https://dn-coding-net-production-pp.qbox.me/7e0b62b0-8f3b-40c1-85a7-a097bcebba1b.png" alt=""></p>
 <p>我们页可加载服务器上的 lua 脚本，注意校验服务器的文件，防止 lua 脚本恶意攻击。</p>
+<h3 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h3><ul>
+<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-LUAScript/" target="_blank" rel="external">Lua 在移动平台上的应用</a></li>
+<li>[]</li>
+</ul>
 ]]></content>
     
     <summary type="html">
@@ -133,16 +176,16 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
-      <category term="Lua" scheme="http://hanks-zyh.github.io/tags/Lua/"/>
+      <category term="Lua" scheme="http://hanks.pub/tags/Lua/"/>
     
   </entry>
   
   <entry>
     <title>Android 下 Markdown 渲染</title>
-    <link href="http://hanks-zyh.github.io/2017/01/10/android-markdown-render/"/>
-    <id>http://hanks-zyh.github.io/2017/01/10/android-markdown-render/</id>
+    <link href="http://hanks.pub/2017/01/10/android-markdown-render/"/>
+    <id>http://hanks.pub/2017/01/10/android-markdown-render/</id>
     <published>2017-01-10T15:03:07.000Z</published>
     <updated>2017-03-27T02:05:42.063Z</updated>
     
@@ -153,7 +196,7 @@
 <h3 id="更改网页字体颜色"><a href="#更改网页字体颜色" class="headerlink" title="更改网页字体颜色"></a>更改网页字体颜色</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFontColor</span><span class="params">(String color)</span> </span>&#123;</div><div class="line">    mWebView.loadUrl(String.format(<span class="string">"javascript:changeFontColor('%s')"</span>, color));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="更改网页字体大小"><a href="#更改网页字体大小" class="headerlink" title="更改网页字体大小"></a>更改网页字体大小</h3><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> setFontSize(<span class="keyword">float</span> <span class="built_in">size</span>) &#123;</div><div class="line">    mWebView.loadUrl(<span class="keyword">String</span>.format(<span class="string">"javascript:changeFontSize(%s)"</span>, <span class="built_in">size</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="更改网页行间距"><a href="#更改网页行间距" class="headerlink" title="更改网页行间距"></a>更改网页行间距</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLineHeight</span><span class="params">(<span class="keyword">float</span> lineHeight)</span> </span>&#123;</div><div class="line">   mWebView.loadUrl(String.format(<span class="string">"javascript:changeLineHeight(%s)"</span>, lineHeight));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="更改网页字体"><a href="#更改网页字体" class="headerlink" title="更改网页字体"></a>更改网页字体</h3><p>通过 CSS 中的 @font-face，具体看上一篇写的 <a href="http://hanks-zyh.github.io/2017/01/09/android-webview-font/">Android 中 webview 自定义字体</a></p>
+<h3 id="更改网页字体"><a href="#更改网页字体" class="headerlink" title="更改网页字体"></a>更改网页字体</h3><p>通过 CSS 中的 @font-face，具体看上一篇写的 <a href="http://hanks-zyh.github.io/2017/01/09/android-webview-font/" target="_blank" rel="external">Android 中 webview 自定义字体</a></p>
 ]]></content>
     
     <summary type="html">
@@ -163,18 +206,18 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
-      <category term="WebView" scheme="http://hanks-zyh.github.io/tags/WebView/"/>
+      <category term="WebView" scheme="http://hanks.pub/tags/WebView/"/>
     
-      <category term="Markdown" scheme="http://hanks-zyh.github.io/tags/Markdown/"/>
+      <category term="Markdown" scheme="http://hanks.pub/tags/Markdown/"/>
     
   </entry>
   
   <entry>
     <title>Android 中 webview 自定义字体</title>
-    <link href="http://hanks-zyh.github.io/2017/01/09/android-webview-font/"/>
-    <id>http://hanks-zyh.github.io/2017/01/09/android-webview-font/</id>
+    <link href="http://hanks.pub/2017/01/09/android-webview-font/"/>
+    <id>http://hanks.pub/2017/01/09/android-webview-font/</id>
     <published>2017-01-09T15:45:28.000Z</published>
     <updated>2017-03-27T02:05:42.077Z</updated>
     
@@ -194,18 +237,18 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
-      <category term="WebView" scheme="http://hanks-zyh.github.io/tags/WebView/"/>
+      <category term="WebView" scheme="http://hanks.pub/tags/WebView/"/>
     
   </entry>
   
   <entry>
     <title>slack bot</title>
-    <link href="http://hanks-zyh.github.io/2016/09/25/slack-bot/"/>
-    <id>http://hanks-zyh.github.io/2016/09/25/slack-bot/</id>
+    <link href="http://hanks.pub/2016/09/25/slack-bot/"/>
+    <id>http://hanks.pub/2016/09/25/slack-bot/</id>
     <published>2016-09-25T13:36:49.000Z</published>
-    <updated>2017-03-27T02:05:42.534Z</updated>
+    <updated>2017-07-10T11:02:58.247Z</updated>
     
     <content type="html"><![CDATA[<p>##　創建機器人</p>
 <p>利用机器人可以做一些重复性的工作。<br>创建 bot user，就是可以跟它进行实时聊天。<br><a id="more"></a></p>
@@ -224,7 +267,7 @@
 <h2 id="自定義消息的樣式"><a href="#自定義消息的樣式" class="headerlink" title="自定義消息的樣式"></a>自定義消息的樣式</h2><p><a href="https://api.slack.com/docs/messages/builder" target="_blank" rel="external">https://api.slack.com/docs/messages/builder</a></p>
 <p><img src="https://ws3.sinaimg.cn/large/8c9b876fjw1f865kgcc7dj20tl0o4djn.jpg" alt="自定义消息"></p>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -236,18 +279,18 @@
     </summary>
     
     
-      <category term="bot" scheme="http://hanks-zyh.github.io/tags/bot/"/>
+      <category term="bot" scheme="http://hanks.pub/tags/bot/"/>
     
-      <category term="slack" scheme="http://hanks-zyh.github.io/tags/slack/"/>
+      <category term="slack" scheme="http://hanks.pub/tags/slack/"/>
     
   </entry>
   
   <entry>
     <title>让网页更适配移动设备</title>
-    <link href="http://hanks-zyh.github.io/2016/09/19/webapp/"/>
-    <id>http://hanks-zyh.github.io/2016/09/19/webapp/</id>
+    <link href="http://hanks.pub/2016/09/19/webapp/"/>
+    <id>http://hanks.pub/2016/09/19/webapp/</id>
     <published>2016-09-19T15:02:44.000Z</published>
-    <updated>2017-03-27T02:05:42.614Z</updated>
+    <updated>2017-07-10T11:02:58.294Z</updated>
     
     <content type="html"><![CDATA[<p>来看一下手机淘宝的效果。打开 chrome ， 输入 <a href="http://m.taobao.com" target="_blank" rel="external">http://m.taobao.com</a> ，等待页面加载完毕点击 chrome 菜单中的<strong>添加到主屏幕</strong>，看到可以在桌面生成一个快捷图标，点击图标进入，可以看到直接变成一个全屏的单独页面，给用户体的验更好。查看页面源码，发现需要添加以下代码去适配。<br><a id="more"></a><br><img src="http://ww2.sinaimg.cn/large/8c9b876fjw1f7zbeu2phdg20800ehhdx.gif" alt="淘宝"></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">  .....</div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns‐prefetch"</span> <span class="attr">href</span>=<span class="string">"http://image.uc.cn"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"yes"</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"yes"</span> <span class="attr">name</span>=<span class="string">"apple-touch-fullscreen"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">content</span>=<span class="string">"telephone=no,email=no"</span> <span class="attr">name</span>=<span class="string">"format-detection"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"App-Config"</span> <span class="attr">content</span>=<span class="string">"fullscreen=yes,useHistoryState=yes,transition=yes"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">rel</span>=<span class="string">"apple-touch-icon-precomposed"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"http://ww1.sinaimg.cn/large/8c9b876fjw1f7zaijlukpj2040040t8m.jpg"</span> <span class="attr">rel</span>=<span class="string">"Shortcut Icon"</span> <span class="attr">type</span>=<span class="string">"image/x-icon"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">   .....</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -258,7 +301,7 @@
 <li><a href="https://m.taobao.com" target="_blank" rel="external">https://m.taobao.com</a></li>
 </ul>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -269,16 +312,16 @@
     </summary>
     
     
-      <category term="Web" scheme="http://hanks-zyh.github.io/tags/Web/"/>
+      <category term="Web" scheme="http://hanks.pub/tags/Web/"/>
     
   </entry>
   
   <entry>
     <title>体验 weex —— 写一个表情包应用</title>
-    <link href="http://hanks-zyh.github.io/2016/09/05/weex-2333/"/>
-    <id>http://hanks-zyh.github.io/2016/09/05/weex-2333/</id>
+    <link href="http://hanks.pub/2016/09/05/weex-2333/"/>
+    <id>http://hanks.pub/2016/09/05/weex-2333/</id>
     <published>2016-09-05T14:45:18.000Z</published>
-    <updated>2017-03-27T02:05:42.624Z</updated>
+    <updated>2017-07-10T11:02:58.300Z</updated>
     
     <content type="html"><![CDATA[<p>前些时间体验 ReactNative 的时候写了一个 2333 表情包 app，这次使用 <code>weex</code> 写一下。 weex 通过自己的一套 sdk 可以将一个 js 文件渲染成一个 native （android 或 iOS ）的 view 对象。 weex 语法参照 vue ，看过一点 vue 的文档所以写起来可以很快上手。有一点感受 <code>weex</code> 的文档感觉没有 RN 的清晰，还有尺寸单位还没搞清楚，浏览器预览的和生成的 android 版还是有差距，和 iOS 也尺寸不太对。<br><a id="more"></a><br><img src="http://ww2.sinaimg.cn/large/8c9b876fjw1f7j4ktor7hj20z40hqn2y.jpg" alt="weex"></p>
 <p><img src="http://o6epsoek1.bkt.clouddn.com/12.gif" alt="brower"></p>
@@ -299,7 +342,7 @@
 <p>然后运行 Android 项目。</p>
 <p>iOS 工程暂时没有跑起来 &gt;.&lt;</p>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -310,16 +353,16 @@
     </summary>
     
     
-      <category term="weex" scheme="http://hanks-zyh.github.io/tags/weex/"/>
+      <category term="weex" scheme="http://hanks.pub/tags/weex/"/>
     
   </entry>
   
   <entry>
     <title>WebView 实现 NestedScrollingChild</title>
-    <link href="http://hanks-zyh.github.io/2016/08/31/nestedscrollchild/"/>
-    <id>http://hanks-zyh.github.io/2016/08/31/nestedscrollchild/</id>
+    <link href="http://hanks.pub/2016/08/31/nestedscrollchild/"/>
+    <id>http://hanks.pub/2016/08/31/nestedscrollchild/</id>
     <published>2016-08-31T14:30:52.000Z</published>
-    <updated>2017-03-27T02:05:42.389Z</updated>
+    <updated>2017-07-10T11:02:58.211Z</updated>
     
     <content type="html"><![CDATA[<p>承接上文 <a href="http://hanks.xyz/2016/08/29/nestedchildparent/" target="_blank" rel="external">NestedScrollingParent 实现复杂交互效果</a> ，在 <code>NestedScroll</code> 这一套流程中，<code>NestedScrollingChild</code> 不用考虑怎么去通知父布局如何滚动，只需要负责自己的事情：<strong>产生滚动</strong>事件，并<strong>将事件共享出去</strong>，<strong>产生 fling</strong> 事件，<strong>共享 fling</strong> 。</p>
 <a id="more"></a>
@@ -336,7 +379,7 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by hanks on 16/8/30.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CodeWebView</span> <span class="keyword">extends</span> <span class="title">WebView</span> <span class="keyword">implements</span> <span class="title">NestedScrollingChild</span>, <span class="title">ScrollListener</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = CodeWebView.class.getSimpleName();</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UP = <span class="number">1</span>;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DOWN = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span>[] mScrollOffset = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span>[] mScrollConsumed = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> mTouchSlop;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> mMinimumVelocity;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> mMaximumVelocity;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> direction = DOWN; <span class="comment">// TODO 还需要同步到父布局的方向</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mLastMotionY;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mNestedYOffset;</div><div class="line">    <span class="keyword">private</span> NestedScrollingChildHelper mChildHelper;</div><div class="line">    <span class="keyword">private</span> VelocityTracker mVelocityTracker;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> allowFly;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> downY;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> mDownY = -<span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CodeWebView</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CodeWebView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CodeWebView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line">        </div><div class="line">        mChildHelper = <span class="keyword">new</span> NestedScrollingChildHelper(<span class="keyword">this</span>); <span class="comment">// 辅助类</span></div><div class="line">        setNestedScrollingEnabled(<span class="keyword">true</span>); <span class="comment">// 设置支持 NestedScrolling</span></div><div class="line">        </div><div class="line">        <span class="keyword">final</span> ViewConfiguration configuration = ViewConfiguration.get(getContext());</div><div class="line">        mTouchSlop = configuration.getScaledTouchSlop();</div><div class="line">        mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();</div><div class="line">        mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">boolean</span> eventAddedToVelocityTracker = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> action = MotionEventCompat.getActionMasked(event);</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> actionIndex = MotionEventCompat.getActionIndex(event);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (mVelocityTracker == <span class="keyword">null</span>) &#123;</div><div class="line">            mVelocityTracker = VelocityTracker.obtain();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">switch</span> (action) &#123;</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">                allowFly = <span class="keyword">false</span>;</div><div class="line">                downY = (<span class="keyword">int</span>) event.getRawY();</div><div class="line">                <span class="comment">// 开始 NestedScroll</span></div><div class="line">                startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">                <span class="keyword">int</span> moveY = (<span class="keyword">int</span>) event.getRawY();</div><div class="line">                <span class="keyword">int</span> dy = -(moveY - downY); <span class="comment">//滚动方法的方向跟坐标是相反的，所以这里要加一个负号</span></div><div class="line">                downY = moveY;</div><div class="line">                <span class="comment">//在consumed 中就是父类滑动的距离，</span></div><div class="line">                <span class="keyword">if</span> (dispatchNestedPreScroll(<span class="number">0</span>, dy, mScrollConsumed, mScrollOffset)) &#123;</div><div class="line">                    dy -= mScrollConsumed[<span class="number">1</span>]; <span class="comment">// 减去父类消费的距离</span></div><div class="line">                    scrollBy(<span class="number">0</span>, dy); <span class="comment">// 剩下的自己消费</span></div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">            <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">            </div><div class="line">                mVelocityTracker.addMovement(event);</div><div class="line">                eventAddedToVelocityTracker = <span class="keyword">true</span>;</div><div class="line">                mVelocityTracker.computeCurrentVelocity(<span class="number">1000</span>, mMaximumVelocity);</div><div class="line">                <span class="keyword">int</span> mScrollPointerId = MotionEventCompat.getPointerId(event, actionIndex);</div><div class="line">                <span class="keyword">float</span> vY = -VelocityTrackerCompat.getYVelocity(mVelocityTracker, mScrollPointerId); </div><div class="line">                <span class="comment">// 产生 fling 事件</span></div><div class="line">                <span class="keyword">if</span> (Math.abs(vY) &gt; mMinimumVelocity &amp;&amp; !dispatchNestedPreFling(<span class="number">0</span>, vY)) &#123;</div><div class="line">                    dispatchNestedFling(<span class="number">0</span>, vY, <span class="keyword">true</span>);</div><div class="line">                    logi(<span class="string">"dispatchNestedFling"</span>);</div><div class="line">                &#125;</div><div class="line">                resetTouch();</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (!eventAddedToVelocityTracker) &#123;</div><div class="line">            mVelocityTracker.addMovement(event);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">resetTouch</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mVelocityTracker != <span class="keyword">null</span>) &#123;</div><div class="line">            mVelocityTracker.clear();</div><div class="line">        &#125;</div><div class="line">        stopNestedScroll();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNestedScrollingEnabled</span><span class="params">(<span class="keyword">boolean</span> enabled)</span> </span>&#123;</div><div class="line">        mChildHelper.setNestedScrollingEnabled(enabled);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">startNestedScroll</span><span class="params">(<span class="keyword">int</span> axes)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mChildHelper.startNestedScroll(axes);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopNestedScroll</span><span class="params">()</span> </span>&#123;</div><div class="line">        mChildHelper.stopNestedScroll();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNestedScrollingParent</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mChildHelper.hasNestedScrollingParent();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchNestedScroll</span><span class="params">(<span class="keyword">int</span> dxConsumed, <span class="keyword">int</span> dyConsumed, <span class="keyword">int</span> dxUnconsumed, <span class="keyword">int</span> dyUnconsumed, <span class="keyword">int</span>[] offsetInWindow)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mChildHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchNestedPreScroll</span><span class="params">(<span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed, <span class="keyword">int</span>[] offsetInWindow)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mChildHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchNestedFling</span><span class="params">(<span class="keyword">float</span> velocityX, <span class="keyword">float</span> velocityY, <span class="keyword">boolean</span> consumed)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mChildHelper.dispatchNestedFling(velocityX, velocityY, consumed);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchNestedPreFling</span><span class="params">(<span class="keyword">float</span> velocityX, <span class="keyword">float</span> velocityY)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mChildHelper.dispatchNestedPreFling(velocityX, velocityY);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Log.e(TAG, s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logi</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Log.i(TAG, s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logw</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Log.w(TAG, s);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -347,18 +390,18 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
-      <category term="NestedScrolling" scheme="http://hanks-zyh.github.io/tags/NestedScrolling/"/>
+      <category term="NestedScrolling" scheme="http://hanks.pub/tags/NestedScrolling/"/>
     
   </entry>
   
   <entry>
     <title>NestedScrollingParent 实现复杂交互效果</title>
-    <link href="http://hanks-zyh.github.io/2016/08/29/nestedchildparent/"/>
-    <id>http://hanks-zyh.github.io/2016/08/29/nestedchildparent/</id>
+    <link href="http://hanks.pub/2016/08/29/nestedchildparent/"/>
+    <id>http://hanks.pub/2016/08/29/nestedchildparent/</id>
     <published>2016-08-29T13:49:44.000Z</published>
-    <updated>2017-03-27T02:05:42.385Z</updated>
+    <updated>2017-07-10T11:02:58.206Z</updated>
     
     <content type="html"><![CDATA[<p>最终效果：<br>上下排列 3 个 view， 依次为 RecyclerView ，NestedScrollView，RecyclerView，规则：子 View 可以滚动时 Touch 事件给子 view 消费，否则给父布局。</p>
 <p><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f7asx0kp5rg20b40jlx6s.gif" alt="img" width="240" height="427"></p>
@@ -380,7 +423,7 @@
 <p><img src="http://ww1.sinaimg.cn/large/8c9b876fjw1f7ay490vzjj20ga0xgwf5.jpg" alt="onLayout"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * NestedScrollView</div><div class="line"> * Created by hanks on 16/8/22.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NScrollView</span> <span class="keyword">extends</span> <span class="title">ViewGroup</span> <span class="keyword">implements</span> <span class="title">NestedScrollingParent</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"NScrollView"</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxDistance = <span class="number">0</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> totalHeight = <span class="number">0</span>;</div><div class="line">    <span class="keyword">private</span> NestedScrollingParentHelper mParentHelper;</div><div class="line">    <span class="keyword">private</span> List&lt;View&gt; nestedScrollingChildList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    <span class="keyword">private</span> ScrollerCompat scroller;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NScrollView</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NScrollView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NScrollView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line">        setOverScrollMode(View.OVER_SCROLL_NEVER);</div><div class="line">        mParentHelper = <span class="keyword">new</span> NestedScrollingParentHelper(<span class="keyword">this</span>);</div><div class="line">        scroller = ScrollerCompat.create(context);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; getChildCount(); i++) &#123;</div><div class="line">            View child = getChildAt(i);</div><div class="line">            measureChild(child, widthMeasureSpec, heightMeasureSpec);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> parentHeight = getMeasuredHeight();</div><div class="line">        <span class="keyword">int</span> top = t;</div><div class="line">        <span class="keyword">int</span> lastChildHeight = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; getChildCount(); i++) &#123;</div><div class="line">            View child =  getChildAt(i);</div><div class="line">            LayoutParams layoutParams = child.getLayoutParams();</div><div class="line">            <span class="keyword">if</span> (layoutParams.height == LayoutParams.MATCH_PARENT) &#123;</div><div class="line">                layoutParams.height = parentHeight;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">int</span> childMeasuredHeight = child.getMeasuredHeight();</div><div class="line">                layoutParams.height = childMeasuredHeight;</div><div class="line">            &#125;</div><div class="line">            log(child + <span class="string">","</span> + layoutParams.height);</div><div class="line">            child.setLayoutParams(layoutParams);</div><div class="line">            child.layout(l, top, r, top + layoutParams.height);</div><div class="line">            top += layoutParams.height;</div><div class="line">            lastChildHeight = layoutParams.height;</div><div class="line">        &#125;</div><div class="line">        maxDistance = top - lastChildHeight;</div><div class="line">        totalHeight = top;</div><div class="line">        <span class="comment">//viewGroup.layout(l, t, r, top);</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onFinishInflate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onFinishInflate();</div><div class="line"></div><div class="line">        nestedScrollingChildList.clear();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; getChildCount(); i++) &#123;</div><div class="line">            View child =  getChildAt(i);</div><div class="line">            nestedScrollingChildList.add(child);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">consumeEvent</span><span class="params">(<span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed)</span> </span>&#123;</div><div class="line">        scrollBy(dx, dy);</div><div class="line">        consumed[<span class="number">0</span>] = <span class="number">0</span>;</div><div class="line">        consumed[<span class="number">1</span>] = dy;</div><div class="line">        log(<span class="string">"parent consumed pre : "</span> + consumed[<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCurrentWrapline</span><span class="params">(View target)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> line = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (View view : nestedScrollingChildList) &#123;</div><div class="line">            <span class="keyword">if</span> (view == target) &#123;</div><div class="line">                <span class="keyword">return</span> line;</div><div class="line">            &#125;</div><div class="line">            line += view.getHeight();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> line;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onStartNestedScroll</span><span class="params">(View child, View target, <span class="keyword">int</span> nestedScrollAxes)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (nestedScrollAxes &amp; SCROLL_AXIS_VERTICAL) != <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedScrollAccepted</span><span class="params">(View child, View target, <span class="keyword">int</span> axes)</span> </span>&#123;</div><div class="line">        mParentHelper.onNestedScrollAccepted(child, target, axes);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedPreScroll</span><span class="params">(View target, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed)</span> </span>&#123;</div><div class="line">        logi(<span class="string">"======== onStartNestedScroll ======="</span>);</div><div class="line">        <span class="keyword">int</span> scrollY = getScrollY();</div><div class="line">        <span class="keyword">int</span> line = getCurrentWrapline(target);</div><div class="line">        <span class="keyword">boolean</span> targetScrollDown = ScrollUtils.canChildScrollDown(target);</div><div class="line">        <span class="keyword">boolean</span> targetScrollUp = ScrollUtils.canChildScrollUp(target);</div><div class="line">        log(<span class="string">"onNestedPreScroll: target = ["</span> + target.getClass().getName() + <span class="string">"], dx = ["</span> + dx + <span class="string">"], dy = ["</span> + dy + <span class="string">"], consumed = ["</span> + consumed + <span class="string">"]"</span>);</div><div class="line">        log(<span class="string">"scrollY:"</span> + scrollY + <span class="string">",lien:"</span> + line + <span class="string">",scrollDown:"</span> + targetScrollDown + <span class="string">"scrollUp:"</span> + targetScrollUp + <span class="string">",maxDistance"</span> + maxDistance);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (scrollY == line</div><div class="line">                &amp;&amp; ((dy &gt; <span class="number">0</span> &amp;&amp; targetScrollDown) || (dy &lt; <span class="number">0</span> &amp;&amp; targetScrollUp))) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (scrollY + dy &lt; <span class="number">0</span> || scrollY + dy &gt; maxDistance) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        consumeEvent(<span class="number">0</span>, dy, consumed);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedScroll</span><span class="params">(View target, <span class="keyword">int</span> dxConsumed, <span class="keyword">int</span> dyConsumed, <span class="keyword">int</span> dxUnconsumed, <span class="keyword">int</span> dyUnconsumed)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> scrollY = getScrollY();</div><div class="line">        <span class="keyword">if</span> (scrollY + dyUnconsumed &lt; <span class="number">0</span> || scrollY + dyUnconsumed &gt; maxDistance) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        scrollBy(dxUnconsumed, dyUnconsumed);</div><div class="line">        log(<span class="string">"onNestedScroll: target = ["</span> + target.getClass().getName() + <span class="string">"], dxConsumed = ["</span> + dxConsumed + <span class="string">"], dyConsumed = ["</span> + dyConsumed + <span class="string">"], dxUnconsumed = ["</span> + dxUnconsumed + <span class="string">"], dyUnconsumed = ["</span> + dyUnconsumed + <span class="string">"]"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onNestedPreFling</span><span class="params">(View target, <span class="keyword">float</span> velocityX, <span class="keyword">float</span> velocityY)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> scrollY = getScrollY();</div><div class="line">        log(<span class="string">"onNestedPreFling: target = ["</span> + target.getClass().getName() + <span class="string">"], velocityX = ["</span> + velocityX + <span class="string">"], velocityY = ["</span> + velocityY + <span class="string">"]"</span> + <span class="string">",scrollY:"</span> + scrollY);</div><div class="line">        <span class="keyword">int</span> line = getCurrentWrapline(target);</div><div class="line">        <span class="keyword">if</span> (scrollY != line) &#123;</div><div class="line">            fling((<span class="keyword">int</span>) velocityY, scrollY);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fling</span><span class="params">(<span class="keyword">int</span> velocityY, <span class="keyword">int</span> scrollY)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (getChildCount() &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">int</span> height = getHeight() - getPaddingTop() - getPaddingBottom();</div><div class="line">            <span class="keyword">int</span> bottom = totalHeight;</div><div class="line">            scroller.fling(<span class="number">0</span>, scrollY, <span class="number">0</span>, velocityY, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>,</div><div class="line">                    Math.max(<span class="number">0</span>, bottom - height));</div><div class="line">            invalidate();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">computeScroll</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (scroller.computeScrollOffset()) &#123;</div><div class="line">            <span class="keyword">int</span> y = scroller.getCurrY();</div><div class="line">            scrollTo(<span class="number">0</span>, y);</div><div class="line">            invalidate();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onNestedFling</span><span class="params">(View target, <span class="keyword">float</span> velocityX, <span class="keyword">float</span> velocityY, <span class="keyword">boolean</span> consumed)</span> </span>&#123;</div><div class="line">        log(<span class="string">"onNestedFling: target = ["</span> + target.getClass().getName() + <span class="string">"], velocityX = ["</span> + velocityX + <span class="string">"], velocityY = ["</span> + velocityY + <span class="string">"], consumed = ["</span> + consumed + <span class="string">"]"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStopNestedScroll</span><span class="params">(View target)</span> </span>&#123;</div><div class="line">        logi(<span class="string">"======== onStopNestedScroll ======="</span>);</div><div class="line">        mParentHelper.onStopNestedScroll(target);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Log.e(TAG, s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logi</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Log.i(TAG, s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logw</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Log.w(TAG, s);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -392,18 +435,18 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
-      <category term="NestedScrolling" scheme="http://hanks-zyh.github.io/tags/NestedScrolling/"/>
+      <category term="NestedScrolling" scheme="http://hanks.pub/tags/NestedScrolling/"/>
     
   </entry>
   
   <entry>
     <title>写一个福利 Telegram 机器人</title>
-    <link href="http://hanks-zyh.github.io/2016/08/04/telegram-bot/"/>
-    <id>http://hanks-zyh.github.io/2016/08/04/telegram-bot/</id>
+    <link href="http://hanks.pub/2016/08/04/telegram-bot/"/>
+    <id>http://hanks.pub/2016/08/04/telegram-bot/</id>
     <published>2016-08-04T01:58:03.000Z</published>
-    <updated>2017-03-27T02:05:42.557Z</updated>
+    <updated>2017-07-10T11:02:58.265Z</updated>
     
     <content type="html"><![CDATA[<p>利用 Telegram 提供的 API 写一机器人，通过发送指令来执行一些任务。<br><a id="more"></a></p>
 <p><img src="http://ww1.sinaimg.cn/large/8c9b876fjw1f6gyh0y6l8j20k00zktb8.jpg" alt="img" width="240" height="427"></p>
@@ -422,7 +465,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="meta"></span></div><div class="line">'use strict'</div><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>)</div><div class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>)</div><div class="line"></div><div class="line"><span class="keyword">var</span> url = <span class="string">'http://www.kmeitu.com/'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPicture</span>(<span class="params">html</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> array = []</div><div class="line">    <span class="keyword">var</span> $ = cheerio.load(html)</div><div class="line">    <span class="keyword">var</span> items = $(<span class="string">'.lz-img'</span>)</div><div class="line">    items.each(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> url = $(<span class="keyword">this</span>).attr(<span class="string">'data-src'</span>).replace(<span class="regexp">/\s+/g</span>, <span class="string">''</span>)</div><div class="line">        array.push(url)</div><div class="line">    &#125;)</div><div class="line">    <span class="keyword">return</span> array[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*array.length)]</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.getMZ = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</div><div class="line">    http.get(url, <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> html = <span class="string">''</span></div><div class="line">        res.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">            html += data</div><div class="line">        &#125;)</div><div class="line">        res.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="comment">//console.log(html)</span></div><div class="line">            <span class="keyword">var</span> array = getPicture(html)</div><div class="line">            callback(array)</div><div class="line">        &#125;)</div><div class="line">    &#125;).on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'get html error'</span>)</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>然后运行 <code>node app.js</code> 即可<br>注意点： 全程需要 FQ（跟 telegram 连接用）， <code>app.js</code> 方法服务器运行（我使用的 <code>pm2</code> ）。</p>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -433,16 +476,16 @@
     </summary>
     
     
-      <category term="Telegram" scheme="http://hanks-zyh.github.io/tags/Telegram/"/>
+      <category term="Telegram" scheme="http://hanks.pub/tags/Telegram/"/>
     
   </entry>
   
   <entry>
     <title>写一个 ButterKnife</title>
-    <link href="http://hanks-zyh.github.io/2016/07/31/write-butterkinfe/"/>
-    <id>http://hanks-zyh.github.io/2016/07/31/write-butterkinfe/</id>
+    <link href="http://hanks.pub/2016/07/31/write-butterkinfe/"/>
+    <id>http://hanks.pub/2016/07/31/write-butterkinfe/</id>
     <published>2016-07-30T19:07:03.000Z</published>
-    <updated>2017-03-27T02:05:42.629Z</updated>
+    <updated>2017-07-10T11:02:58.306Z</updated>
     
     <content type="html"><![CDATA[<p><a href="http://jakewharton.github.io/butterknife/" target="_blank" rel="external">ButterKnife</a> 很多人都用过，能节省很多代码，最多的就是省去了很多 <code>findViewById</code> 语句。接下来自己写一个，就叫 <code>BBKnife</code> 吧。</p>
 <a id="more"></a>
@@ -489,7 +532,7 @@
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://blog.stablekernel.com/the-10-step-guide-to-annotation-processing-in-android-studio" target="_blank" rel="external">http://blog.stablekernel.com/the-10-step-guide-to-annotation-processing-in-android-studio
 </a></p>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -500,18 +543,18 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
-      <category term="依赖注入" scheme="http://hanks-zyh.github.io/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
+      <category term="依赖注入" scheme="http://hanks.pub/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
     
   </entry>
   
   <entry>
     <title>多行 EditText 的光标高度问题</title>
-    <link href="http://hanks-zyh.github.io/2016/07/24/edittext-cursor/"/>
-    <id>http://hanks-zyh.github.io/2016/07/24/edittext-cursor/</id>
+    <link href="http://hanks.pub/2016/07/24/edittext-cursor/"/>
+    <id>http://hanks.pub/2016/07/24/edittext-cursor/</id>
     <published>2016-07-24T15:23:12.000Z</published>
-    <updated>2017-03-27T02:05:42.113Z</updated>
+    <updated>2017-07-10T11:02:58.015Z</updated>
     
     <content type="html"><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>改变文本的行间距需要给 <code>EditText</code> 设置 <code>lineSpacingExtra</code> 和 <code>lineSpacingMultiplier</code> 这个时候的 <code>EditText</code>的光标高度就会变得很难看.<br><a id="more"></a><br><img src="http://ww3.sinaimg.cn/large/8c9b876fjw1f65febqq97j20bm082dge.jpg" alt="默认效果"></p>
 <h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>自定义 <code>cursorDrawable</code> 然后设置 <code>padding</code> 值</p>
@@ -527,7 +570,7 @@
 <p>注意上面设置了 shape 的 <code>padding</code> 计算出来 <code>bottom = 行高 - 文字高度 = 42 - 20 = 22</code>.当然这值是可以自己调整的.</p>
 <p><img src="http://ww1.sinaimg.cn/large/8c9b876fjw1f65fgftcsij20bi06u74r.jpg" alt="设置后效果"></p>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -538,18 +581,18 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
-      <category term="EditText" scheme="http://hanks-zyh.github.io/tags/EditText/"/>
+      <category term="EditText" scheme="http://hanks.pub/tags/EditText/"/>
     
   </entry>
   
   <entry>
     <title>TextView 设置行高并垂直居中</title>
-    <link href="http://hanks-zyh.github.io/2016/07/22/textview-lineheight/"/>
-    <id>http://hanks-zyh.github.io/2016/07/22/textview-lineheight/</id>
+    <link href="http://hanks.pub/2016/07/22/textview-lineheight/"/>
+    <id>http://hanks.pub/2016/07/22/textview-lineheight/</id>
     <published>2016-07-22T13:49:04.000Z</published>
-    <updated>2017-03-27T02:05:42.562Z</updated>
+    <updated>2017-07-10T11:02:58.271Z</updated>
     
     <content type="html"><![CDATA[<p><strong>需求</strong>： TextView 多行文本可以设置行高（如20dp），每行文本垂直居中。</p>
 <p>效果如下：</p>
@@ -585,7 +628,7 @@
 <p> <a href="https://github.com/7heaven/AndroidSdkSourceAnalysis/blob/master/article/textview%E6%BA%90%E7%A2%BC%E8%A7%A3%E6%9E%90.md" target="_blank" rel="external">TextView源码解析</a></p>
 <p> <a href="http://www.cnblogs.com/tianzhijiexian/p/4297664.html" target="_blank" rel="external">用TextPaint来绘制文字</a></p>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -598,16 +641,16 @@
     </summary>
     
     
-      <category term="TextView" scheme="http://hanks-zyh.github.io/tags/TextView/"/>
+      <category term="TextView" scheme="http://hanks.pub/tags/TextView/"/>
     
   </entry>
   
   <entry>
     <title>自动化测试还可以用来干啥</title>
-    <link href="http://hanks-zyh.github.io/2016/07/07/auto-test/"/>
-    <id>http://hanks-zyh.github.io/2016/07/07/auto-test/</id>
+    <link href="http://hanks.pub/2016/07/07/auto-test/"/>
+    <id>http://hanks.pub/2016/07/07/auto-test/</id>
     <published>2016-07-06T16:01:00.000Z</published>
-    <updated>2017-03-27T02:05:42.086Z</updated>
+    <updated>2017-07-10T11:02:57.993Z</updated>
     
     <content type="html"><![CDATA[<p>自动化测试就是把一些重复的测试工作利用相关工具自动化，减少重复的劳动。我们不仅可以利用自动化测试工具做测试，还可以利用这些工作做一些其他事情，比如爬数据，曾经抓取过学校的整个学期的课表，空闲教室，帮老爸抓取他的客户联系信息到 excel 表。这种工具不同于一般的脚本爬虫，这相当于正常的用户行为，比如点击输入框，输入文本，点击按钮，而且不用担心动态 js 等问题。</p>
 <a id="more"></a>
@@ -634,7 +677,7 @@
 </ol>
 <p>可以利用 slack 或者 telegram 机器人的 api 来通知自己（比如将验证码图片发送到手机）。</p>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -645,14 +688,14 @@
     </summary>
     
     
-      <category term="自动化" scheme="http://hanks-zyh.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+      <category term="自动化" scheme="http://hanks.pub/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>学习 Promise （结合 RxJava）</title>
-    <link href="http://hanks-zyh.github.io/2016/06/26/promise-by-rx/"/>
-    <id>http://hanks-zyh.github.io/2016/06/26/promise-by-rx/</id>
+    <link href="http://hanks.pub/2016/06/26/promise-by-rx/"/>
+    <id>http://hanks.pub/2016/06/26/promise-by-rx/</id>
     <published>2016-06-26T08:24:37.000Z</published>
     <updated>2017-03-27T02:05:42.423Z</updated>
     
@@ -693,20 +736,20 @@
     </summary>
     
     
-      <category term="Promise" scheme="http://hanks-zyh.github.io/tags/Promise/"/>
+      <category term="Promise" scheme="http://hanks.pub/tags/Promise/"/>
     
-      <category term="JavaScript" scheme="http://hanks-zyh.github.io/tags/JavaScript/"/>
+      <category term="JavaScript" scheme="http://hanks.pub/tags/JavaScript/"/>
     
-      <category term="前端" scheme="http://hanks-zyh.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://hanks.pub/tags/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
   <entry>
     <title>利用 Android 手机打造来电通知计划</title>
-    <link href="http://hanks-zyh.github.io/2016/06/21/motifyme/"/>
-    <id>http://hanks-zyh.github.io/2016/06/21/motifyme/</id>
+    <link href="http://hanks.pub/2016/06/21/motifyme/"/>
+    <id>http://hanks.pub/2016/06/21/motifyme/</id>
     <published>2016-06-21T15:38:27.000Z</published>
-    <updated>2017-03-27T02:05:42.373Z</updated>
+    <updated>2017-07-10T11:02:58.200Z</updated>
     
     <content type="html"><![CDATA[<p>最近住的地方总在晚上停电，还让不让人活了，大热天的，于是就晚上在外面先找个凉快的地方呆着，但是来电的时间不确定，有时候感觉应该来电了，回去了还是没电，那个热啊。那么问题来了，要是屋里来电了有人告诉我就好了！于是计划写一个小程序让它在屋里来电后通知。<br><a id="more"></a><br>利用现用资源：一台<strong>退休的手机</strong><br>大概思路是这样的：家里的路由器是一直连着电源的，老手机是一直开着 wifi 的，来电后路由器通电，自动连接上网络，这个时候手机也检测到网络，连接上了 wifi，然后后台程序通过此判断来电了，再让老手机给我发短信通知，收到来电通知后我就可以回去了吹电扇了！</p>
 <p>来来来，开始写程序</p>
@@ -733,7 +776,7 @@
 </ul>
 <blockquote>
 <p>还有一种思路就是手机一直充着电，检测手机电池状态是否为充电。</p>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -744,16 +787,16 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>SwipeRefreshLayout 源码</title>
-    <link href="http://hanks-zyh.github.io/2016/06/18/swiperefreshlayout/"/>
-    <id>http://hanks-zyh.github.io/2016/06/18/swiperefreshlayout/</id>
+    <link href="http://hanks.pub/2016/06/18/swiperefreshlayout/"/>
+    <id>http://hanks.pub/2016/06/18/swiperefreshlayout/</id>
     <published>2016-06-18T11:37:51.000Z</published>
-    <updated>2017-03-27T02:05:42.551Z</updated>
+    <updated>2017-07-10T11:02:58.260Z</updated>
     
     <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="http://developer.android.com/intl/zh-cn/reference/android/support/v4/widget/SwipeRefreshLayout.html" target="_blank" rel="external">官方文档</a></p>
 <p><code>SwipeRefreshLayout</code> 是一个下拉刷新控件，几乎可以包裹一个任何可以滚动的内容（ListView GridView ScrollView RecyclerView），可以自动识别垂直滚动手势。使用起来非常方便。</p>
@@ -829,7 +872,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Animation.AnimationListener mRefreshListener = <span class="keyword">new</span> Animation.AnimationListener() &#123;</div><div class="line">   <span class="comment">// .. 省略代码</span></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (mRefreshing) &#123;</div><div class="line">           mProgress.setAlpha(MAX_ALPHA); <span class="comment">//确保刷新圆圈中间的进度条是完全不透明了</span></div><div class="line">           mProgress.start();</div><div class="line">           <span class="keyword">if</span> (mNotify) &#123; <span class="comment">// 当 mNotify 为 true 时才会回调 onRefresh</span></div><div class="line">               <span class="keyword">if</span> (mListener != <span class="keyword">null</span>) &#123;</div><div class="line">                   <span class="comment">// 回调 listener 的 onRefresh 方法</span></div><div class="line">                   mListener.onRefresh();</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">           mCurrentTargetOffsetTop = mCircleView.getTop();</div><div class="line">       &#125; <span class="keyword">else</span> &#123;</div><div class="line">           reset();</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>分析 SwipeRefreshLayout 的流程就是按照平时我们自定义 <code>ViewGroup</code> 的流程，但是其中也有好多需要我们借鉴的地方，如何使用 NestedScrolling相关机制 ，多点触控的处理，onMeasure 中减去了 padding，如何判断子 View 是否可滚动，如何确定 ViewGroup 中某一个 View 的索引等。<br>此外，一个好的下拉刷新框架不仅仅要兼容各种滚动的子控件，还要考虑自己要兼容 NestedScrollingChild 的情况，比如放到 CooCoordinatorLayout 的情况，目前大多数开源的下拉刷新好像都没有达到这个要求，一般都是只考虑了内部嵌套滚动子视图的情况，没有考虑自己作为滚动子视图的情况。</p>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 ]]></content>
     
@@ -841,31 +884,9 @@
     </summary>
     
     
-      <category term="Android" scheme="http://hanks-zyh.github.io/tags/Android/"/>
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
-      <category term="SwipeRefreshLayout" scheme="http://hanks-zyh.github.io/tags/SwipeRefreshLayout/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Leancloud 进行网站托管</title>
-    <link href="http://hanks-zyh.github.io/2016/06/05/leancloud-website/"/>
-    <id>http://hanks-zyh.github.io/2016/06/05/leancloud-website/</id>
-    <published>2016-06-05T15:04:34.000Z</published>
-    <updated>2017-03-27T02:05:42.344Z</updated>
-    
-    <content type="html"><![CDATA[<p>Leancloud 提供了网站托管功能。文档：<a href="https://leancloud.cn/docs/leanengine_webhosting_guide-node.html" target="_blank" rel="external">网站托管开发指南 · Node.js</a><br><a id="more"></a><br>网址： <a href="http://bookshelf.leanapp.cn/" target="_blank" rel="external">http://bookshelf.leanapp.cn/</a></p>
-<p><img src="http://ww1.sinaimg.cn/large/8c9b876fjw1f4kralm68gj20w01m37d6.jpg" alt=""></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Leancloud 提供了网站托管功能。文档：&lt;a href=&quot;https://leancloud.cn/docs/leanengine_webhosting_guide-node.html&quot;&gt;网站托管开发指南 · Node.js&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="leancloud" scheme="http://hanks-zyh.github.io/tags/leancloud/"/>
+      <category term="SwipeRefreshLayout" scheme="http://hanks.pub/tags/SwipeRefreshLayout/"/>
     
   </entry>
   

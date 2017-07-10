@@ -9,7 +9,7 @@
 SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何可以滚动的内容（ListView GridView ScrollView RecyclerView），可以自动识别垂直滚动手势。使用起来非常方便。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SwipeRefreshLayout 源码">
-<meta property="og:url" content="http://hanks-zyh.github.io/2016/06/18/swiperefreshlayout/index.html">
+<meta property="og:url" content="http://hanks.pub/2016/06/18/swiperefreshlayout/index.html">
 <meta property="og:site_name" content="Hanks' Blog">
 <meta property="og:description" content="简介官方文档
 SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何可以滚动的内容（ListView GridView ScrollView RecyclerView），可以自动识别垂直滚动手势。使用起来非常方便。">
@@ -17,7 +17,7 @@ SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何�
 <meta property="og:image" content="http://img.blog.csdn.net/20150127121649015">
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/8e02212d-b364-4df8-bfaa-47f3084f89e7.png">
 <meta property="og:image" content="https://dn-coding-net-production-pp.qbox.me/8df6d458-700b-4ec5-b731-c6b8c34cdddc.png">
-<meta property="og:updated_time" content="2017-03-27T02:05:42.551Z">
+<meta property="og:updated_time" content="2017-07-10T11:02:58.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SwipeRefreshLayout 源码">
 <meta name="twitter:description" content="简介官方文档
@@ -113,6 +113,10 @@ SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何�
       <ul>
         
           <li>
+            <a href="/2017/04/28/lua-in-android/">探究 lua 在 Android 中的应用</a>
+          </li>
+        
+          <li>
             <a href="/2017/03/26/node-image-recognition/">Node 识别图片中的文字</a>
           </li>
         
@@ -168,10 +172,6 @@ SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何�
             <a href="/2016/07/24/edittext-cursor/">多行 EditText 的光标高度问题</a>
           </li>
         
-          <li>
-            <a href="/2016/07/22/textview-lineheight/">TextView 设置行高并垂直居中</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -182,7 +182,7 @@ SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何�
   <div class="widget-wrap mdl-shadow--2dp">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Atom/" style="font-size: 10px;">Atom</a> <a href="/tags/Dagger2/" style="font-size: 10px;">Dagger2</a> <a href="/tags/EditText/" style="font-size: 10px;">EditText</a> <a href="/tags/Express/" style="font-size: 11.67px;">Express</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 11.67px;">Framework</a> <a href="/tags/HTML-CSS/" style="font-size: 10px;">HTML/CSS</a> <a href="/tags/Jade/" style="font-size: 10px;">Jade</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Kotlin/" style="font-size: 15px;">Kotlin</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Lua/" style="font-size: 10px;">Lua</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NestedScrolling/" style="font-size: 13.33px;">NestedScrolling</a> <a href="/tags/Node-js/" style="font-size: 13.33px;">Node.js</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/React-Native/" style="font-size: 18.33px;">React-Native</a> <a href="/tags/Refactoring/" style="font-size: 10px;">Refactoring</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 11.67px;">Rxjava</a> <a href="/tags/SQLite/" style="font-size: 10px;">SQLite</a> <a href="/tags/Scrapy/" style="font-size: 11.67px;">Scrapy</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/SwipeRefreshLayout/" style="font-size: 10px;">SwipeRefreshLayout</a> <a href="/tags/Telegram/" style="font-size: 10px;">Telegram</a> <a href="/tags/TextView/" style="font-size: 10px;">TextView</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/VPS/" style="font-size: 10px;">VPS</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/WebView/" style="font-size: 11.67px;">WebView</a> <a href="/tags/bot/" style="font-size: 10px;">bot</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/interpolator/" style="font-size: 10px;">interpolator</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/slack/" style="font-size: 10px;">slack</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/weex/" style="font-size: 10px;">weex</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/学习/" style="font-size: 10px;">学习</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/热修复/" style="font-size: 11.67px;">热修复</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
+      <a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Atom/" style="font-size: 10px;">Atom</a> <a href="/tags/Dagger2/" style="font-size: 10px;">Dagger2</a> <a href="/tags/EditText/" style="font-size: 10px;">EditText</a> <a href="/tags/Express/" style="font-size: 11.67px;">Express</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Framework/" style="font-size: 11.67px;">Framework</a> <a href="/tags/HTML-CSS/" style="font-size: 10px;">HTML/CSS</a> <a href="/tags/Jade/" style="font-size: 10px;">Jade</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Kotlin/" style="font-size: 15px;">Kotlin</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Lua/" style="font-size: 11.67px;">Lua</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/NestedScrolling/" style="font-size: 13.33px;">NestedScrolling</a> <a href="/tags/Node-js/" style="font-size: 13.33px;">Node.js</a> <a href="/tags/OS-X/" style="font-size: 10px;">OS X</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/React-Native/" style="font-size: 18.33px;">React-Native</a> <a href="/tags/Refactoring/" style="font-size: 10px;">Refactoring</a> <a href="/tags/Rx/" style="font-size: 10px;">Rx</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/Rxandroid/" style="font-size: 10px;">Rxandroid</a> <a href="/tags/Rxjava/" style="font-size: 11.67px;">Rxjava</a> <a href="/tags/SQLite/" style="font-size: 10px;">SQLite</a> <a href="/tags/Scrapy/" style="font-size: 11.67px;">Scrapy</a> <a href="/tags/Swift/" style="font-size: 10px;">Swift</a> <a href="/tags/SwipeRefreshLayout/" style="font-size: 10px;">SwipeRefreshLayout</a> <a href="/tags/Telegram/" style="font-size: 10px;">Telegram</a> <a href="/tags/TextView/" style="font-size: 10px;">TextView</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/VPS/" style="font-size: 10px;">VPS</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/WebView/" style="font-size: 11.67px;">WebView</a> <a href="/tags/bot/" style="font-size: 10px;">bot</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/interpolator/" style="font-size: 10px;">interpolator</a> <a href="/tags/leancloud/" style="font-size: 10px;">leancloud</a> <a href="/tags/mac-os/" style="font-size: 10px;">mac os</a> <a href="/tags/slack/" style="font-size: 10px;">slack</a> <a href="/tags/virtualBox/" style="font-size: 10px;">virtualBox</a> <a href="/tags/weex/" style="font-size: 10px;">weex</a> <a href="/tags/代理/" style="font-size: 10px;">代理</a> <a href="/tags/依赖注入/" style="font-size: 10px;">依赖注入</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/学习/" style="font-size: 10px;">学习</a> <a href="/tags/必备知识/" style="font-size: 10px;">必备知识</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/热修复/" style="font-size: 11.67px;">热修复</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/自动化/" style="font-size: 10px;">自动化</a> <a href="/tags/设计/" style="font-size: 10px;">设计</a>
     </div>
   </div>
 
@@ -204,10 +204,6 @@ SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何�
         
           <li>
             <a href="http://rocko.xyz/">Rocko&#39;s blog</a>
-          </li>
-        
-          <li>
-            <a href="http://hexo.io">Hexo</a>
           </li>
         
       </ul>
@@ -322,7 +318,7 @@ SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何�
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Animation.AnimationListener mRefreshListener = <span class="keyword">new</span> Animation.AnimationListener() &#123;</div><div class="line">   <span class="comment">// .. 省略代码</span></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (mRefreshing) &#123;</div><div class="line">           mProgress.setAlpha(MAX_ALPHA); <span class="comment">//确保刷新圆圈中间的进度条是完全不透明了</span></div><div class="line">           mProgress.start();</div><div class="line">           <span class="keyword">if</span> (mNotify) &#123; <span class="comment">// 当 mNotify 为 true 时才会回调 onRefresh</span></div><div class="line">               <span class="keyword">if</span> (mListener != <span class="keyword">null</span>) &#123;</div><div class="line">                   <span class="comment">// 回调 listener 的 onRefresh 方法</span></div><div class="line">                   mListener.onRefresh();</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">           mCurrentTargetOffsetTop = mCircleView.getTop();</div><div class="line">       &#125; <span class="keyword">else</span> &#123;</div><div class="line">           reset();</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>分析 SwipeRefreshLayout 的流程就是按照平时我们自定义 <code>ViewGroup</code> 的流程，但是其中也有好多需要我们借鉴的地方，如何使用 NestedScrolling相关机制 ，多点触控的处理，onMeasure 中减去了 padding，如何判断子 View 是否可滚动，如何确定 ViewGroup 中某一个 View 的索引等。<br>此外，一个好的下拉刷新框架不仅仅要兼容各种滚动的子控件，还要考虑自己要兼容 NestedScrollingChild 的情况，比如放到 CooCoordinatorLayout 的情况，目前大多数开源的下拉刷新好像都没有达到这个要求，一般都是只考虑了内部嵌套滚动子视图的情况，没有考虑自己作为滚动子视图的情况。</p>
 <blockquote>
-<p>文章来自： <a href="http://hanks.xyz" target="_blank" rel="external">http://hanks.xyz</a></p>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
 
       
@@ -357,6 +353,8 @@ SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何�
 
   <!--
 
+    
+      		
     
       		
     
@@ -985,37 +983,18 @@ SwipeRefreshLayout 是一个下拉刷新控件，几乎可以包裹一个任何�
 
 
 
-<section id="comments">
+<section>
     <!-- 多说分享框 -->
-    <div class="ds-share flat" data-thread-key="/2016/06/18/swiperefreshlayout/" data-title="SwipeRefreshLayout 源码" data-images="https://raw.githubusercontent.com/Hankiya/LoveOnline/master/Rich%20Format%20Vertical.png" data-content="SwipeRefreshLayout 源码" data-url="http://hanks-zyh.github.io//2016/06/18/swiperefreshlayout/">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">
-
-      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-      </ul>
-      <div class="ds-share-icons-more">
-      </div>
-    </div>
-   </div>
-    <!-- 多说评论框 start -->
-   	<div class="ds-thread" data-thread-key="/2016/06/18/swiperefreshlayout/" data-title="SwipeRefreshLayout 源码" data-url="http://hanks-zyh.github.io//2016/06/18/swiperefreshlayout/"></div>
-   <!-- 多说评论框 end -->
-   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-   <script type="text/javascript">
-   var duoshuoQuery = {short_name:"hanks-zyh"};
-   	(function() {
-   		var ds = document.createElement('script');
-   		ds.type = 'text/javascript';ds.async = true;
-   		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-   		ds.charset = 'UTF-8';
-   		(document.getElementsByTagName('head')[0]
-   		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-   	})();
-   	</script>
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+  <script>
+    var cloudTieConfig = {
+      url: document.location.href, 
+      sourceId: "",
+      productKey: "c281da4ada474c22a0c92a9fd8c548f5",
+      target: "cloud-tie-wrapper"
+    };
+  </script>
+  <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
    <!-- 多说公共JS代码 end -->
 </section>
 
