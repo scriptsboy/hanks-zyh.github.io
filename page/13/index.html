@@ -104,6 +104,10 @@
       <ul>
         
           <li>
+            <a href="/2017/10/11/android-night-mode/">Android 夜间模式</a>
+          </li>
+        
+          <li>
             <a href="/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a>
           </li>
         
@@ -157,10 +161,6 @@
         
           <li>
             <a href="/2016/08/04/telegram-bot/">写一个福利 Telegram 机器人</a>
-          </li>
-        
-          <li>
-            <a href="/2016/07/31/write-butterkinfe/">写一个 ButterKnife</a>
           </li>
         
       </ul>
@@ -217,6 +217,220 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-hdu_题目_1384_Wall（凸包）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/16/hdu_题目_1384_Wall（凸包）/">hdu 题目 1384 Wall（凸包）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p>Graham求凸包：<a target="_blank" href="http://www.2cto.com/kf/201301/184235.html">http://www.2cto.com/kf/201301/184235.html</a></p>
+<h1 style="font-family:'Times New Roman'; color:rgb(26,92,200); text-align:center">
+&nbsp;</h1>
+<h1 style="font-family:'Times New Roman'; color:rgb(26,92,200); text-align:center">
+Wall</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 2497&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 695<br>
+</span></strong></span><br style="font-size:14px; font-family:'Times New Roman'">
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Problem Description</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+Once upon a time there was a greedy King who ordered his chief Architect to build a wall around the King's castle. The King was so greedy, that he would not listen to his Architect's proposals to build a beautiful brick wall with a perfect shape and nice tall
+ towers. Instead, he ordered to build the wall around the whole castle using the least amount of stone and labor, but demanded that the wall should not come closer to the castle than a certain distance. If the King finds that the Architect has used more resources
+ to build the wall than it was absolutely necessary to satisfy those requirements, then the Architect will loose his head. Moreover, he demanded Architect to introduce at once a plan of the wall listing the exact amount of resources that are needed to build
+ the wall.<br>
+Your task is to help poor Architect to save his head, by writing a program that will find the minimum possible length of the wall that he could build around the castle to satisfy King's requirements.<br>
+<br>
+<center><img alt="" src="http://acm.hdu.edu.cn/data/images/1348-1.gif" style="border-top:medium none; border-right:medium none; border-bottom:medium none; border-left:medium none"></center>
+<br>
+<br>
+The task is somewhat simplified by the fact, that the King's castle has a polygonal shape and is situated on a flat ground. The Architect has already established a Cartesian coordinate system and has precisely measured the coordinates of all castle's vertices
+ in feet.<br>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Input</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+The first line of the input file contains two integer numbers N and L separated by a space. N (3 &lt;= N &lt;= 1000) is the number of vertices in the King's castle, and L (1 &lt;= L &lt;= 1000) is the minimal number of feet that King allows for the wall to come close to
+ the castle.<br>
+<br>
+Next N lines describe coordinates of castle's vertices in a clockwise order. Each line contains two integer numbers Xi and Yi separated by a space (-10000 &lt;= Xi, Yi &lt;= 10000) that represent the coordinates of ith vertex. All vertices are different and the sides
+ of the castle do not intersect anywhere except for vertices.<br>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Output</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+Write to the output file the single number that represents the minimal possible length of the wall in feet that could be built around the castle to satisfy King's requirements. You must present the integer number of feet to the King, because the floating numbers
+ are not invented yet. However, you must round the result in such a way, that it is accurate to 8 inches (1 foot is equal to 12 inches), since the King will not tolerate larger error in the estimates.<br>
+<br>
+This problem contains multiple test cases!<br>
+<br>
+The first line of a multiple input is an integer N, then a blank line followed by N input blocks. Each input block is in the format indicated in the problem description. There is a blank line between input blocks.<br>
+<br>
+The output format consists of N output blocks. There is a blank line between output blocks.<br>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Sample Input</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+<pre style="margin-bottom:0px; margin-top:0px"><div style="font-family:'Courier New',Courier,monospace">1
+
+9 100
+200 400
+300 400
+300 300
+400 300
+400 400
+500 400
+500 200
+350 200
+200 200</div></pre>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<br style="font-size:14px; font-family:'Times New Roman'">
+<div class="panel_title" align="left" style="font-size:18px; height:38px; font-family:Arial; font-weight:bold; color:rgb(124,169,237); padding-bottom:0px; padding-top:0px; padding-left:14px; padding-right:14px; background-color:transparent">
+Sample Output</div>
+<div class="panel_content" style="font-size:14px; height:auto; font-family:'Times New Roman'; padding-bottom:0px; padding-top:0px; padding-left:20px; margin:0px; padding-right:20px">
+<pre style="margin-bottom:0px; margin-top:0px"><div style="font-family:'Courier New',Courier,monospace">1628</div></pre>
+</div>
+<div class="panel_bottom" style="font-size:14px; height:auto; font-family:'Times New Roman'; margin:0px">
+&nbsp;</div>
+<div><br>
+</div>
+<br>
+<p></p>
+<p><span style="font-size:18px">1.寻找凸包的边上的点，求出周长</span></p>
+<p><span style="font-size:18px">2.周长加上 给出的半径的 圆弧和（即一个圆周）</span></p>
+<p><br>
+</p>
+<p><pre class="cpp" name="code">#include&lt;algorithm&gt;
+#include&lt;math.h&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#define PI 3.1415926
+
+using namespace std;
+
+struct point{
+    int x,y;
+}p[1005];
+bool vis[1005];
+
+bool cmp(point a,point b){
+    if(a.x&lt;b.x) return 1;
+    else if(a.x==b.x){
+        if(a.y&lt;b.y) return 1;
+        else return 0;
+    }
+    else return 0;
+}
+double cross(point a,point b,point c){
+    return (b.x-a.x)*(c.y-b.y) - (b.y-a.y)*(c.x-b.x);
+}
+double dis(point A,point B)  
+{  
+    return sqrt((double)((B.x-A.x)*(B.x-A.x)+(B.y-A.y)*(B.y-A.y)));  
+}  
+
+int main(){
+
+
+    int rear,front;
+    int que[10000];
+    int t,n,l,i,temp;
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--){
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;l);                                 
+        for(i=0;i&lt;n;i++) 
+            scanf(&quot;%d %d&quot;,&amp;p[i].x,&amp;p[i].y);
+    
+        sort(p,p+n,cmp);//排序，找到第一个在凸包上的点 p[0] 
+
+        memset(vis,0,sizeof(vis)); 
+        vis[0]=1;
+        
+        temp =rear = front =0;
+              
+        while(1){
+            
+            int t = -1;
+            for(int j=0;j&lt;n;j++){
+                if(!vis[j]) {
+                    t = j;
+                    break;
+                }               
+            }    
+            if(t==-1) break; //全部访问完毕退出 
+            
+            for(i=0;i&lt;n;i++){
+                if( (cross(p[temp],p[t],p[i])&gt;0 
+                || (cross(p[temp],p[t],p[i])==0 
+                &amp;&amp; dis(p[temp],p[i]) &gt; dis(p[temp],p[t])))){
+                    t = i;
+                }
+            }
+            
+            if(vis[t]) break;
+            que[rear++]= t;
+            vis[t] = 1;
+            temp = t;
+        }
+        
+        que[rear++] = 0;
+        double sum=0;
+        temp = 0; int in;
+        while(front != rear){ //计算凸包边长和
+            in = que[front++];
+            sum += dis(p[in],p[temp]);
+            temp = in;                                    
+        }
+        
+        printf(&quot;%.0f\n&quot;,sum+PI*l*2  );
+        if(t) printf(&quot;\n&quot;);
+    }
+    return 0;
+}   </pre><br>
+<br>
+</p>
+<p></p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
   
     <article id="post-hdu_题目1253_胜利大逃亡（BFS）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -3429,159 +3643,6 @@ int main()
 }</pre>
 <p><br>
 &nbsp;</p>
-
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
-    <article id="post-hdu_题目1010_Tempter_of_the_Bone（DFS_奇偶剪枝）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/08/09/hdu_题目1010_Tempter_of_the_Bone（DFS_奇偶剪枝）/">hdu 题目1010 Tempter of the Bone（DFS+奇偶剪枝）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-<h1 align="center" style="color:#1a5cc8">Tempter of the Bone</h1>
-<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
-Total Submission(s): 54205&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 14593<br>
-</span></strong></span><br>
-<br>
-</p>
-<div class="panel_title" align="left">Problem Description</div>
-<div class="panel_content">The doggie found a bone in an ancient maze, which fascinated him a lot. However, when he picked it up, the maze began to shake, and the doggie could feel the ground sinking. He realized that the bone was a trap, and he tried desperately
- to get out of this maze.<br>
-<br>
-The maze was a rectangle with sizes N by M. There was a door in the maze. At the beginning, the door was closed and it would open at the T-th second for a short period of time (less than 1 second). Therefore the doggie had to arrive at the door on exactly the
- T-th second. In every second, he could move one block to one of the upper, lower, left and right neighboring blocks. Once he entered a block, the ground of this block would start to sink and disappear in the next second. He could not stay at one block for
- more than one second, nor could he move into a visited block. Can the poor doggie survive? Please help him.<br>
-</div>
-<div class="panel_bottom">&nbsp;</div>
-<p><br>
-&nbsp;</p>
-<div class="panel_title" align="left">Input</div>
-<div class="panel_content">The input consists of multiple test cases. The first line of each test case contains three integers N, M, and T (1 &lt; N, M &lt; 7; 0 &lt; T &lt; 50), which denote the sizes of the maze and the time at which the door will open, respectively.
- The next N lines give the maze layout, with each line containing M characters. A character is one of the following:<br>
-<br>
-'X': a block of wall, which the doggie cannot enter; <br>
-'S': the start point of the doggie; <br>
-'D': the Door; or<br>
-'.': an empty block.<br>
-<br>
-The input is terminated with three 0's. This test case is not to be processed.<br>
-</div>
-<div class="panel_bottom">&nbsp;</div>
-<p><br>
-&nbsp;</p>
-<div class="panel_title" align="left">Output</div>
-<div class="panel_content">For each test case, print in one line &quot;YES&quot; if the doggie can survive, or &quot;NO&quot; otherwise.<br>
-</div>
-<div class="panel_bottom">&nbsp;</div>
-<p><br>
-&nbsp;</p>
-<div class="panel_title" align="left">Sample Input</div>
-<div class="panel_content">
-<pre><div style="font-family:Courier New,Courier,monospace">4 4 5
-S.X.
-..X.
-..XD
-....
-3 4 5
-S.X.
-..X.
-...D
-0 0 0</div></pre>
-</div>
-<div class="panel_bottom">&nbsp;<br>
-</div>
-<div class="panel_title" align="left">Sample Output</div>
-<div class="panel_content">
-<pre><div style="font-family:Courier New,Courier,monospace">NO
-YES</div></pre>
-</div>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>DFS&#43;奇偶剪枝：</p>
-<p>1.先按照原来的DFS来写，最后加上奇偶剪枝的条件</p>
-<p>&nbsp;</p>
-<pre class="cpp" name="code">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;stdlib.h&gt;
-
-char a[9][9];
-bool vis[9][9],flag;
-int m,n,e_x,e_y;
-
-void DFS(int x,int y,int step)
-{
-    if(flag || x&lt;0 || x&gt;=n || y&lt;0 || y&gt;=m ) return;//已到达终点后面不需再判断
-  
-    if(step==0 &amp;&amp; a[x][y]=='D') { flag=1;  return;}//到达终点
-    
-    if(step&lt; abs(x-e_x)+abs(y-e_y) || (step-(abs(x-e_x)+abs(y-e_y))&amp;1)) return ;//奇偶剪枝
-    
-    if(!vis[x+1][y] &amp;&amp; a[x+1][y]!='X') 
-	{  vis[x+1][y]=1;  DFS(x+1,y,step-1); vis[x+1][y]=0; }
-	
-    if(!vis[x][y+1] &amp;&amp; a[x][y+1]!='X')
-	{  vis[x][y+1]=1;  DFS(x,y+1,step-1); vis[x][y+1]=0; } 
-	
-    if(!vis[x-1][y] &amp;&amp; a[x-1][y]!='X') 
-	{ vis[x-1][y]=1;   DFS(x-1,y,step-1); vis[x-1][y]=0;}
-	
-    if(!vis[x][y-1] &amp;&amp; a[x][y-1]!='X') 
-	{ vis[x][y-1]=1;   DFS(x,y-1,step-1); vis[x][y-1]=0;}
-}
-
-int main()
-{
-    int t,i,j,s_x,s_y;
-    while(scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;t),!(n==0&amp;&amp;m==0&amp;&amp;t==0))
-    {
-        getchar();//吸收回车 
-        
-        for(i=0;i&lt;n;i++){
-            for(j=0;j&lt;m;j++){
-                a[i][j] = getchar();
-                if(a[i][j]=='S'){ s_x = i; s_y = j;}//起点位置
-                if(a[i][j]=='D'){ e_x = i; e_y = j;} //终点位置
-            }  getchar();//吸收回车 
-        }
-
-        flag=0;	memset(vis,0,sizeof(vis));  
-	vis[s_x][s_y]=1; //!!!!!!!!!起点置1 ，这一点在开始忘了</pre><pre class="cpp" name="code">
-        DFS(s_x,s_y,t); 
-		 
-        if(flag) printf(&quot;YES\n&quot;);
-        else printf(&quot;NO\n&quot;);
-    }
-    return 0;
-}</pre>
-<p><br>
-&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 
       
     </div>

@@ -104,6 +104,10 @@
       <ul>
         
           <li>
+            <a href="/2017/10/11/android-night-mode/">Android 夜间模式</a>
+          </li>
+        
+          <li>
             <a href="/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a>
           </li>
         
@@ -157,10 +161,6 @@
         
           <li>
             <a href="/2016/08/04/telegram-bot/">写一个福利 Telegram 机器人</a>
-          </li>
-        
-          <li>
-            <a href="/2016/07/31/write-butterkinfe/">写一个 ButterKnife</a>
           </li>
         
       </ul>
@@ -217,6 +217,485 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-c语言swap(a,b)值交换的4种…" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/02/19/c语言swap(a,b)值交换的4种…/">c语言swap(a,b)值交换的4种…</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<div class="blogzz_abstract borderc" style="padding-top:15px;margin:20px 0; border:none; border-top:1px dotted #ccc;"><div class="blogzz_ainfo" style="margin-bottom:12px;"><span style="margin-right:25px;"><strong>原文地址：</strong><a target="_blank" href="http://blog.sina.com.cn/s/blog_abecef150101jeny.html" title="c语言swap(a,b)值交换的4种实现方法">c语言swap(a,b)值交换的4种实现方法</a></span><span><strong>作者：</strong><a href="http://blog.sina.com.cn/u/2884431637" title="向在午时" target="_blank">向在午时</a></span></div><div class="blogzz_acon"><span style="color: rgb(51, 51, 51); font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; background-color: rgb(247, 252, 255);">
+&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr>平常swap(a,b)值交换，我们基本都是使用第一种方法，对于数学较好的人，可能会想到第二种方法，想到时，一定感觉很好，。对于汇编或对位有理解的人，可能会想到第三种方法，这个方法很妙。但，真正促使我写这篇文章的，还是第四种方法，妙，真的很妙，先(b
+= a), 我是真没想到。</span>
+<div><br></div>
+<div>
+<div>
+<div style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 0px 3px; margin: 3px auto 0px; border-left-color: rgb(0, 153, 204); border-left-width: 1px; border-left-style: solid; width: 600px; background-color: rgb(242, 246, 251); clear: both; border-top-color: rgb(0, 153, 204); border-top-width: 1px; border-top-style: solid; border-right-color: rgb(0, 153, 204); border-right-width: 1px; border-right-style: solid; color: rgb(51, 51, 51);">
+代码如下:</div>
+<div style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
+<font style="font-size: 16px;"><br style="padding: 0px; margin: 0px;">
+void swap(int &amp;a, int &amp;b)&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
+{&nbsp;<wbr></font></div>
+<div style="padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
+<font style="font-size: 16px;"><font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;"><br style="padding: 0px; margin: 0px;"></span></font> <font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">//方法一：&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">int tmp =
+0;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">tmp =
+b;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">b =
+a;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">a =
+tmp;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<br></font></div>
+<div style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
+<font style="font-size: 16px;">//方法二：&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
+//a = a+b;&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
+//b = a-b;&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
+//a = a -b;&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
+<br></font></div>
+<div style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
+<font style="font-size: 16px;">//方法三：&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
+//a ^= b ^= a ^= b;&nbsp;<wbr></font></div>
+<div style="padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
+<font style="font-size: 16px;"><font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;"><br style="padding: 0px; margin: 0px;"></span></font> &nbsp;<wbr>
+&nbsp;<wbr><font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">//方法四：&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+
+&nbsp;<wbr> &nbsp;<wbr><font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">//a =
+a+b-(b=a);&nbsp;<wbr></span></font></font></div>
+<div style="padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
+<font face="Arial, Tahoma, Verdana, sans-serif" style="font-size: 16px;"><span style="line-height: 25px;">}&nbsp;<wbr></span></font></div>
+<div style="padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
+<font style="font-size: 16px;"><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">int
+main(void)&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">{&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">int a =
+3;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">int b =
+4;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">printf("before swap: a = %d, b = %dn", a,
+b);&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">swap(a,
+b);&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">printf("after swap: a = %d, b = %dn", a,
+b);&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">return
+0;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
+<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">}</span></font></font>
+<p style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 5px 0px; margin: 0px;">
+&nbsp;<wbr></p>
+<p style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 5px 0px; margin: 0px;">
+&nbsp;<wbr></p>
+</div>
+<p style="padding: 5px 0px; margin: 0px; line-height: 25px; color: rgb(51, 51, 51); font-family: Arial, Tahoma, Verdana, sans-serif; background-color: rgb(247, 252, 255);">
+&nbsp;<wbr></p>
+</div>
+</div>
+<div><br></div>
+<div><span style="background-color: rgb(247, 252, 255); color: rgb(51, 51, 51); font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px;">
+关于传参方式有三种：值传参、地址传参、引用传参（C++方法），上面使用的是第三种，引用传参，因为这种传参方式使得swap里面实现更为直观。当然，也可以使用第二种传参方式地址传参，不过，值传参是不行的哦。</span></div></div></div>							
+		</div>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
+  
+    <article id="post-表达式求值" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/02/19/表达式求值/">表达式求值</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<p><code style="FonT-siZe: 1em !important; BorDer-Top: 0px; HeiGHT: auto !important; FonT-FAMiLY: Consolas, Monaco, 'Bitstream Vera sans Mono', 'Courier new', Courier, monospace !important; BorDer-riGHT: 0px; VerTiCAL-ALiGn: baseline !important; BACKGroUnD-iMAGe: none; riGHT: auto !important; BorDer-BoTToM: 0px; posiTion: static !important; FLoAT: none !important; FonT-WeiGHT: normal !important; CoLor: rgb(0,0,0) !important; oUTLine-WiDTH: 0px !important; pADDinG-BoTToM: 0px !important; FonT-sTYLe: normal !important; TexT-ALiGn: left !important; pADDinG-Top: 0px !important; oUTLine-sTYLe: none !important; pADDinG-LeFT: 0px !important; LeFT: auto !important; MArGin: 0px; BorDer-LeFT: 0px; DispLAY: inline !important; oUTLine-CoLor: invert !important; Line-HeiGHT: 1.1em !important; Top: auto !important; pADDinG-riGHT: 0px !important; WiDTH: auto !important; BoTToM: auto !important">
+<a href="http://photo.blog.sina.com.cn/showpic.html#blogid=8c9b876f0101dliq&url=http://s7.sinaimg.cn/orignal/8c9b876fgdbf04a54a786" target="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src="http://s7.sinaimg.cn/mw690/8c9b876fgdbf04a54a786&amp;690" name="image_operate_75101367725090536" alt="表达式求值" title="表达式求值"></a><br>
+<br>
+<a href="http://photo.blog.sina.com.cn/showpic.html#blogid=8c9b876f0101dliq&url=http://s1.sinaimg.cn/orignal/8c9b876fgdbf04e7dff10" target="_blank"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src="http://s1.sinaimg.cn/mw690/8c9b876fgdbf04e7dff10&amp;690" name="image_operate_54971367725098841" alt="表达式求值" title="表达式求值"></a><br>
+<br></code></p>							
+		</div>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
+  
+    <article id="post-已知二叉树的中序遍历和前序遍历，…" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/02/19/已知二叉树的中序遍历和前序遍历，…/">已知二叉树的中序遍历和前序遍历，…</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+假设有棵树，长下面这个样子，它的前序遍历，中序遍历，后续遍历都很容易知道。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+<img style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; MAx-WiDTH: 100%; BorDer-Top: medium none; BorDer-riGHT: medium none" alt="" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src="http://hi.csdn.net/attachment/201109/24/0_1316833375Ea74.gif" title="已知二叉树的中序遍历和前序遍历，如何求后序遍历"><br>
+</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+PreOrder: &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
+&nbsp;<wbr> GDAFEMHZ</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+InOrder:&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+ADEFGHMZ</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+PostOrder:&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+AEFDHZMG</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+现在，假设仅仅知道前序和中序遍历，如何求后序遍历呢？比如，已知一棵树的前序遍历是”GDAFEMHZ”，而中序遍历是”ADEFGHMZ”应该如何求后续遍历?</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+第一步，root最简单，前序遍历的第一节点G就是root。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+第二步，继续观察前序遍历GDAFEMHZ，除了知道G是root，剩下的节点必然是root的左右子树之外，没法找到更多信息了。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+第三步，那就观察中序遍历ADEFGHMZ。其中root节点G左侧的ADEF必然是root的左子树，G右侧的HMZ必然是root的右子树。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+第四步，观察左子树ADEF，左子树的中的根节点必然是大树的root的leftchild。在前序遍历中，大树的root的leftchild位于root之后，所以左子树的根节点为D。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+第五步，同样的道理，root的右子树节点HMZ中的根节点也可以通过前序遍历求得。在前序遍历中，一定是先把root和root的所有左子树节点遍历完之后才会遍历右子树，并且遍历的右子树的第一个节点就是右子树的根节点。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+如何知道哪里是前序遍历中的左子树和右子树的分界线呢？通过中序遍历去数节点的个数。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+在上一次中序遍历中，root左侧是A、D、E、F，所以有4个节点位于root左侧。那么在前序遍历中，必然是第1个是G，第2到第5个由A、D、E、F过程，第6个就是root的右子树的根节点了，是M。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+第六步，观察发现，上面的过程是递归的。先找到当前树的根节点，然后划分为左子树，右子树，然后进入左子树重复上面的过程，然后进入右子树重复上面的过程。最后就可以还原一棵树了。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+第七步，其实，如果仅仅要求写后续遍历，甚至不要专门占用空间保存还原后的树。只需要稍微改动第六步，就能实现要求。仅需要把第六步的递归的过程改动为如下:</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+1 确定根,确定左子树，确定右子树。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+2 在左子树中递归。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+3 在右子树中递归。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+4 打印当前根。</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+参考了一些网上的讨论，具体程序是:</p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<div style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(231,229,220); TexT-inDenT: 0px; MArGin: 18px 0px; WiDTH: 687px; FonT: 12px/26px Consolas, 'Courier new', Courier, mono, serif; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); oVerFLoW: auto; WorD-spACinG: 0px; pADDinG-Top: 1px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+<div style="pADDinG-LeFT: 45px">
+<div style="BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 10px; BACKGroUnD-CoLor: rgb(248,248,248); pADDinG-LeFT: 10px; pADDinG-riGHT: 8px; FonT: 9px Verdana, Geneva, Arial, Helvetica, sans-serif; CoLor: silver; pADDinG-Top: 3px"><b>[cpp]</b><span><font face="Verdana">&nbsp;<wbr></font></span><a title="view plain" href="http://blog.csdn.net/feliciafay/article/details/6816871#" target="_blank" rel="external">view
+plain</a><a title="copy" href="http://blog.csdn.net/feliciafay/article/details/6816871#" target="_blank" rel="external">copy</a>
+<div>
+<embed height="18" name="ZeroClipboardMovie_1" type="application/x-shockwave-flash" align="middle" pluginspage="http://www.macromedia.com/go/getflashplayer" width="18" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" wmode="transparent" flashvars="id=1&amp;width=18&amp;height=18" allowfullscreen="false" allowscriptaccess="never" allownetworking="internal" autostart="0" bgcolor="#FFFFFF" quality="best" menu="false" loop="false"></div>
+</div>
+</div>
+<ol style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal; MArGin: 0px 0px 1px 45px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(92,92,92); BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: gray; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">#include&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: gray; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">#include&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: gray; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">#include&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">struct</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>TreeNode&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">{&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">struct</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>TreeNode*&nbsp;<wbr>left;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">struct</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>TreeNode*&nbsp;<wbr>right;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr>elem;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">};&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">TreeNode*&nbsp;<wbr>BinaryTreeFromOrderings(<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">*&nbsp;<wbr>inorder,&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">*&nbsp;<wbr>preorder,&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">int</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>length)&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">{&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">if</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">(length&nbsp;<wbr>==&nbsp;<wbr>0)&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>{&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">return</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>NULL;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>TreeNode*&nbsp;<wbr>node&nbsp;<wbr>=&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">new</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>TreeNode;</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,130,0); BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">//Noice&nbsp;<wbr>that&nbsp;<wbr>[new]&nbsp;<wbr>should&nbsp;<wbr>be&nbsp;<wbr>written&nbsp;<wbr>out.</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>node-&gt;elem&nbsp;<wbr>=&nbsp;<wbr>*preorder;&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">int</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>rootIndex&nbsp;<wbr>=&nbsp;<wbr>0;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">for</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">(;rootIndex&nbsp;<wbr>&lt;&nbsp;<wbr>length;&nbsp;<wbr>rootIndex++)</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,130,0); BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">//a&nbsp;<wbr>variation&nbsp;<wbr>of&nbsp;<wbr>the&nbsp;<wbr>loop</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>{&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">if</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">(inorder[rootIndex]&nbsp;<wbr>==&nbsp;<wbr>*preorder)&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">break</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>node-&gt;left&nbsp;<wbr>=&nbsp;<wbr>BinaryTreeFromOrderings(inorder,&nbsp;<wbr>preorder&nbsp;<wbr>+1,&nbsp;<wbr>rootIndex);&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>node-&gt;right&nbsp;<wbr>=&nbsp;<wbr>BinaryTreeFromOrderings(inorder&nbsp;<wbr>+&nbsp;<wbr>rootIndex&nbsp;<wbr>+&nbsp;<wbr>1,&nbsp;<wbr>preorder&nbsp;<wbr>+&nbsp;<wbr>rootIndex&nbsp;<wbr>+&nbsp;<wbr>1,&nbsp;<wbr>length&nbsp;<wbr>-&nbsp;<wbr>(rootIndex&nbsp;<wbr>+&nbsp;<wbr>1));&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>std::cout&lt;&lt;node-&gt;elem&lt;&lt;std::endl;&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">return</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>node;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">}&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">int</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>main(</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">int</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>argc,&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">**&nbsp;<wbr>argv){&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">*&nbsp;<wbr>pr=</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: blue; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">"GDAFEMHZ"</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">*&nbsp;<wbr>in=</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: blue; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">"ADEFGHMZ"</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">;&nbsp;<wbr>BinaryTreeFromOrderings(in,&nbsp;<wbr>pr,&nbsp;<wbr>8);&nbsp;<wbr>printf(</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: blue; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">"\n"</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">);&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">return</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>0;}&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+</ol>
+</div>
+<br style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+
+<br style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+<font face="Consolas"><br></font></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+其实上面的代码写得不够简洁。题目只要求输出后续遍历，并没有要求建树。所以，不需要去计算出node-&gt;left与node-&gt;right，也不需要去return
+node。改进版本如下<br></p>
+<p style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(255,255,255); TexT-inDenT: 0px; FonT: 14px/26px Arial; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); WorD-spACinG: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+&nbsp;<wbr></p>
+<div style="TexT-ALiGn: left; WiDoWs: 2; TexT-TrAnsForM: none; BACKGroUnD-CoLor: rgb(231,229,220); TexT-inDenT: 0px; MArGin: 18px 0px; WiDTH: 687px; FonT: 12px/26px Consolas, 'Courier new', Courier, mono, serif; WHiTe-spACe: normal; orpHAns: 2; LeTTer-spACinG: normal; CoLor: rgb(51,51,51); oVerFLoW: auto; WorD-spACinG: 0px; pADDinG-Top: 1px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">
+<div style="pADDinG-LeFT: 45px">
+<div style="BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 10px; BACKGroUnD-CoLor: rgb(248,248,248); pADDinG-LeFT: 10px; pADDinG-riGHT: 8px; FonT: 9px Verdana, Geneva, Arial, Helvetica, sans-serif; CoLor: silver; pADDinG-Top: 3px"><b>[cpp]</b><span><font face="Verdana">&nbsp;<wbr></font></span><a title="view plain" href="http://blog.csdn.net/feliciafay/article/details/6816871#" target="_blank" rel="external">view
+plain</a><a title="copy" href="http://blog.csdn.net/feliciafay/article/details/6816871#" target="_blank" rel="external">copy</a>
+<div>
+<embed height="18" name="ZeroClipboardMovie_2" type="application/x-shockwave-flash" align="middle" pluginspage="http://www.macromedia.com/go/getflashplayer" width="18" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" wmode="transparent" flashvars="id=2&amp;width=18&amp;height=18" allowfullscreen="false" allowscriptaccess="never" allownetworking="internal" autostart="0" bgcolor="#FFFFFF" quality="best" menu="false" loop="false"></div>
+</div>
+</div>
+<ol style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal; MArGin: 0px 0px 1px 45px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(92,92,92); BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">struct</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>TreeNode&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">{&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">struct</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>TreeNode*&nbsp;<wbr>left;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">struct</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>TreeNode*&nbsp;<wbr>right;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr>elem;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">};&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">void</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>BinaryTreeFromOrderings(</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">*&nbsp;<wbr>inorder,&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">*&nbsp;<wbr>preorder,&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">int</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>length)&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">{&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">if</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">(length&nbsp;<wbr>==&nbsp;<wbr>0)&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>{&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,130,0); BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">//cout&lt;&lt;"invalid&nbsp;<wbr>length";</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">return</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>TreeNode*&nbsp;<wbr>node&nbsp;<wbr>=&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">new</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>TreeNode;</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,130,0); BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">//Noice&nbsp;<wbr>that&nbsp;<wbr>[new]&nbsp;<wbr>should&nbsp;<wbr>be&nbsp;<wbr>written&nbsp;<wbr>out.</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>node-&gt;elem&nbsp;<wbr>=&nbsp;<wbr>*preorder;&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">int</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>rootIndex&nbsp;<wbr>=&nbsp;<wbr>0;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">for</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">(;rootIndex&nbsp;<wbr>&lt;&nbsp;<wbr>length;&nbsp;<wbr>rootIndex++)&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>{&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">if</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">(inorder[rootIndex]&nbsp;<wbr>==&nbsp;<wbr>*preorder)&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">break</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,130,0); BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">//Left</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>BinaryTreeFromOrderings(inorder,&nbsp;<wbr>preorder&nbsp;<wbr>+1,&nbsp;<wbr>rootIndex);&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,130,0); BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">//Right</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>BinaryTreeFromOrderings(inorder&nbsp;<wbr>+&nbsp;<wbr>rootIndex&nbsp;<wbr>+&nbsp;<wbr>1,&nbsp;<wbr>preorder&nbsp;<wbr>+&nbsp;<wbr>rootIndex&nbsp;<wbr>+&nbsp;<wbr>1,&nbsp;<wbr>length&nbsp;<wbr>-&nbsp;<wbr>(rootIndex&nbsp;<wbr>+&nbsp;<wbr>1));&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;node-&gt;elem&lt;&lt;endl;&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">return</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">}&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">int</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>main(</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">int</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>argc,&nbsp;<wbr></span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">*&nbsp;<wbr>argv[])&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">{&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>printf(<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: blue; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">"Hello&nbsp;<wbr>World!\n"</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">);&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">*&nbsp;<wbr>pr=</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: blue; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">"GDAFEMHZ"</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(46,139,87); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">char</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">*&nbsp;<wbr>in=</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: blue; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">"ADEFGHMZ"</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>BinaryTreeFromOrderings(in,&nbsp;<wbr>pr,&nbsp;<wbr>8);&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>printf(<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: blue; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">"\n"</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">);&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(255,255,255); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; pADDinG-Top: 0px !important"><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: rgb(0,102,153); BorDer-Top: medium none; FonT-WeiGHT: bold; BorDer-riGHT: medium none; pADDinG-Top: 0px">return</span><span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">&nbsp;<wbr>0;&nbsp;<wbr>&nbsp;<wbr></span></font></span></li>
+<li style="LisT-sTYLe-posiTion: outside; BorDer-BoTToM-sTYLe: none; BorDer-LeFT: rgb(108,226,108) 3px solid; pADDinG-BoTToM: 0px !important; Line-HeiGHT: 18px; BorDer-riGHT-sTYLe: none; BACKGroUnD-CoLor: rgb(248,248,248); LisT-sTYLe-TYpe: decimal-leading-zero; MArGin: 0px; pADDinG-LeFT: 10px !important; pADDinG-riGHT: 3px !important; BorDer-Top-sTYLe: none; CoLor: rgb(92,92,92); pADDinG-Top: 0px !important">
+<span style="BorDer-BoTToM: medium none; BorDer-LeFT: medium none; pADDinG-BoTToM: 0px; MArGin: 0px; pADDinG-LeFT: 0px; pADDinG-riGHT: 0px; CoLor: black; BorDer-Top: medium none; BorDer-riGHT: medium none; pADDinG-Top: 0px">
+<font face="Consolas">}&nbsp;<wbr>&nbsp;<wbr></font></span></li>
+</ol>
+</div>							
+		</div>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
   
     <article id="post-NYOJ-467&amp;nbsp;中缀式变后缀式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -462,283 +941,6 @@ int main()<br>
 
 
   
-    <article id="post-已知二叉树前、中序遍历，求…" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/02/19/已知二叉树前、中序遍历，求…/">已知二叉树前、中序遍历，求…</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-<div id="sina_keyword_ad_area2" class="articalContent  ">
-			<div class="blogzz_abstract borderc" style="padding-top:15px;margin:20px 0; border:none; border-top:1px dotted #ccc;"><div class="blogzz_ainfo" style="margin-bottom:12px;"><span style="margin-right:25px;"><strong>原文地址：</strong><a target="_blank" href="http://blog.sina.com.cn/s/blog_5b57a49b0100b9to.html" title="已知二叉树前、中序遍历，求它的后序遍历">已知二叉树前、中序遍历，求它的后序遍历</a></span><span><strong>作者：</strong><a href="http://blog.sina.com.cn/u/1532470427" title="hongxian" target="_blank">hongxian</a></span></div><div class="blogzz_acon"><p>这是我今天做网易笔试题最后的编程题所碰到的问题。由于考试时时间比较紧，写的代码难免有瑕疵。</p>
-<p>sample input</p>
-<p>ABDGCEF</p>
-<p>DGBAECF</p>
-<p>sample output</p>
-<p>GDBEFCA</p>
-<p>&nbsp;<wbr></p>
-<p>
-思路：比较容易想到的方法是把它还原为二叉树再进行后序遍历。不过这样就比较麻烦了。下面的方法跳过建树的过程直接求后序遍历的。时间复杂度为O(n^2),空间复杂度为O(n)。当然这不是最优的，本人已经想到改进的方法，可以把时间复杂度降到O(nlogn)。不过由于懒惰，所以就苟且用这个吧。实际上有简短的递归方法。所以仅当做一种另类的想法记录一下。</p>
-<p>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-用一个order数组存中序遍历中的字符在后序遍历中的顺序，从大到小。比如sample input中所得的order为：5 6 4 0
-3 1 2。</p>
-<p>直接用上面的例子说明算法过程：</p>
-<p>order=0 0 0 0 0 0 0</p>
-<p>对于str1中的A，找出它在str2中的位置为4，它左右order的值都和4位置的order的值相同，说明它有左、右子树</p>
-<p>改变order的值为：</p>
-<p>2 2 2 0 1 1 1</p>
-<p>对于str1中的B，找出它在str2中的位置3，它左order的值和当前order值相同，说明它有左子树，</p>
-<p>改变order的值为：</p>
-<p>3 3 2 0 1 1 1</p>
-<p>对于str1中的D，找出它在str2中的位置1，改变order的值为：</p>
-<p>3 4 2 0 1 1 1</p>
-<p>对于str1中的G，找出它在str2中的位置2，改变order的值为：</p>
-<p>3 4 2 0 1 1 1</p>
-<p>对于str1中的C，找出它在str2中的位置6，改变order的值为：</p>
-<p>5&nbsp;<wbr>6&nbsp;<wbr>4 0&nbsp;<wbr>3 1
-2</p>
-<p>....</p>
-<p>处理完后就得到order的值为5&nbsp;<wbr>6&nbsp;<wbr>4
-0&nbsp;<wbr>3 1 2，恰好是后序遍历中str2的字符被反问到的顺序（从大到小）。</p>
-<p>&nbsp;<wbr></p>
-<p>代码：</p>
-<p>&nbsp;<wbr></p>
-<p>#include &lt;iostream&gt;<br>
-#include &lt;string&gt;<br>
-using namespace std;</p>
-<p>const int maxn=100;</p>
-<p>int find(char c,char str[])<br>
-{<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> int
-len=strlen(str);<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> for (int
-i=0;i&lt;len;i++)<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-if (c==str[i]) return i;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> return
-len;<br>
-}</p>
-<p>int main()<br>
-{<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> char
-str1[maxn],str2[maxn],str[maxn];<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-cin&gt;&gt;str1&gt;&gt;str2;//输入前、中序遍历<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> int
-len=strlen(str1);<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> if
-(len!=strlen(str2)) return -1;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> int
-order[maxn]={0};//order初始化为0<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> for (int
-i=0;i&lt;len;i++)<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> {<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-int k=find(str1[i],str2);//找到前序第i个字符在中序字符中的位置<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-int t=0;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-if (k&gt;0 &amp;&amp;
-order[k-1]==order[k]) t++;//有左子树<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-if (k&lt;len-1 &amp;&amp;
-order[k+1]==order[k]) t++;//有右子树</p>
-<p>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-for (int j=0;j&lt;len;j++) if
-(order[j]&gt;order[k]) order[j]+=t;//对于上面一层的加深层数</p>
-<p>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-if (t==2)<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-{<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-for (int j=k-1;j&gt;=0;j--) if
-(order[j]&gt;=order[k]) order[j]+=t; else
-break;//左子树被访问顺序会比右子树快1，所以下面order[j]+=t-1;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-for (int j=k+1;j&lt;len;j++) if
-(order[j]&gt;=order[k]) order[j]+=t-1; else
-break;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-continue;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-}</p>
-<p>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-if (t==1)<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-{<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-if (k&gt;0 &amp;&amp;
-order[k-1]==order[k])//有左子树<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-for (int j=k-1;j&gt;=0;j--) if (order[k]==order[j])
-order[j]+=t; else break;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-if (k&lt;len-1 &amp;&amp;
-order[k+1]==order[k])//有右子树<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-for (int j=k+1;j&lt;len;j++) if (order[k]==order[j])
-order[j]+=t; else break;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-}<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> }</p>
-<p>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> for (int
-i=0;i&lt;len;i++)//映射中序为后序<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-str[len-order[i]-1]=str2[i];</p>
-<p>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-str[len]=0;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-cout&lt;&lt;str&lt;&lt;endl;//输出<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> return
-0;<br>
-}<br></p>
-<p>&nbsp;<wbr></p>
-<p>&nbsp;<wbr></p>
-<p>&nbsp;<wbr></p></div></div>							
-		</div>
-
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
-    <article id="post-c语言swap(a,b)值交换的4种…" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/02/19/c语言swap(a,b)值交换的4种…/">c语言swap(a,b)值交换的4种…</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-<div id="sina_keyword_ad_area2" class="articalContent  ">
-			<div class="blogzz_abstract borderc" style="padding-top:15px;margin:20px 0; border:none; border-top:1px dotted #ccc;"><div class="blogzz_ainfo" style="margin-bottom:12px;"><span style="margin-right:25px;"><strong>原文地址：</strong><a target="_blank" href="http://blog.sina.com.cn/s/blog_abecef150101jeny.html" title="c语言swap(a,b)值交换的4种实现方法">c语言swap(a,b)值交换的4种实现方法</a></span><span><strong>作者：</strong><a href="http://blog.sina.com.cn/u/2884431637" title="向在午时" target="_blank">向在午时</a></span></div><div class="blogzz_acon"><span style="color: rgb(51, 51, 51); font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; background-color: rgb(247, 252, 255);">
-&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>
-&nbsp;<wbr> &nbsp;<wbr>
-&nbsp;<wbr>平常swap(a,b)值交换，我们基本都是使用第一种方法，对于数学较好的人，可能会想到第二种方法，想到时，一定感觉很好，。对于汇编或对位有理解的人，可能会想到第三种方法，这个方法很妙。但，真正促使我写这篇文章的，还是第四种方法，妙，真的很妙，先(b
-= a), 我是真没想到。</span>
-<div><br></div>
-<div>
-<div>
-<div style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 0px 3px; margin: 3px auto 0px; border-left-color: rgb(0, 153, 204); border-left-width: 1px; border-left-style: solid; width: 600px; background-color: rgb(242, 246, 251); clear: both; border-top-color: rgb(0, 153, 204); border-top-width: 1px; border-top-style: solid; border-right-color: rgb(0, 153, 204); border-right-width: 1px; border-right-style: solid; color: rgb(51, 51, 51);">
-代码如下:</div>
-<div style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
-<font style="font-size: 16px;"><br style="padding: 0px; margin: 0px;">
-void swap(int &amp;a, int &amp;b)&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
-{&nbsp;<wbr></font></div>
-<div style="padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
-<font style="font-size: 16px;"><font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;"><br style="padding: 0px; margin: 0px;"></span></font> <font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">//方法一：&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">int tmp =
-0;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">tmp =
-b;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">b =
-a;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">a =
-tmp;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<br></font></div>
-<div style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
-<font style="font-size: 16px;">//方法二：&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
-//a = a+b;&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
-//b = a-b;&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
-//a = a -b;&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
-<br></font></div>
-<div style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
-<font style="font-size: 16px;">//方法三：&nbsp;<wbr><br style="padding: 0px; margin: 0px;">
-//a ^= b ^= a ^= b;&nbsp;<wbr></font></div>
-<div style="padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
-<font style="font-size: 16px;"><font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;"><br style="padding: 0px; margin: 0px;"></span></font> &nbsp;<wbr>
-&nbsp;<wbr><font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">//方法四：&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-
-&nbsp;<wbr> &nbsp;<wbr><font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">//a =
-a+b-(b=a);&nbsp;<wbr></span></font></font></div>
-<div style="padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
-<font face="Arial, Tahoma, Verdana, sans-serif" style="font-size: 16px;"><span style="line-height: 25px;">}&nbsp;<wbr></span></font></div>
-<div style="padding: 0px 3px 0px 5px; margin: 0px auto 3px; border: 1px solid rgb(0, 153, 204); width: 598px; background-color: rgb(221, 237, 251); clear: both; color: rgb(51, 51, 51);">
-<font style="font-size: 16px;"><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">int
-main(void)&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">{&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">int a =
-3;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">int b =
-4;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">printf("before swap: a = %d, b = %dn", a,
-b);&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">swap(a,
-b);&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">printf("after swap: a = %d, b = %dn", a,
-b);&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">return
-0;&nbsp;<wbr></span></font><br style="padding: 0px; margin: 0px;">
-<font face="Arial, Tahoma, Verdana, sans-serif"><span style="line-height: 25px;">}</span></font></font>
-<p style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 5px 0px; margin: 0px;">
-&nbsp;<wbr></p>
-<p style="font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px; padding: 5px 0px; margin: 0px;">
-&nbsp;<wbr></p>
-</div>
-<p style="padding: 5px 0px; margin: 0px; line-height: 25px; color: rgb(51, 51, 51); font-family: Arial, Tahoma, Verdana, sans-serif; background-color: rgb(247, 252, 255);">
-&nbsp;<wbr></p>
-</div>
-</div>
-<div><br></div>
-<div><span style="background-color: rgb(247, 252, 255); color: rgb(51, 51, 51); font-family: Arial, Tahoma, Verdana, sans-serif; line-height: 25px;">
-关于传参方式有三种：值传参、地址传参、引用传参（C++方法），上面使用的是第三种，引用传参，因为这种传参方式使得swap里面实现更为直观。当然，也可以使用第二种传参方式地址传参，不过，值传参是不行的哦。</span></div></div></div>							
-		</div>
-
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
     <article id="post-链表" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -792,7 +994,7 @@ struct Lnode</p>
 
 
   
-    <article id="post-链栈" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-顺序表" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
   </div>
@@ -803,7 +1005,7 @@ struct Lnode</p>
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/02/19/链栈/">链栈</a>
+      <a class="article-title" href="/2014/02/19/顺序表/">顺序表</a>
     </h1>
   
 
@@ -817,206 +1019,172 @@ struct Lnode</p>
 #define ERROR 0<br>
 #define TRUE 1<br>
 #define FALSE 0<br>
-#define INFEASIBLE -2<br>
-#define OVERFLOW -1</p>
+#define INFEASIBLE -1<br>
+#define OVERFLOW -2<br>
+#define LIST_INIT_SIZE 15<br>
+#define LIST_INCREMENT 10</p>
 <p>#include<br>
+#include<br>
 #include</p>
+<p>typedef int Status;&nbsp;<wbr>&nbsp;<wbr>//Status
+相当于 int<br>
+typedef struct Sqlist<br>
+{<br>
+&nbsp;<wbr>int * elem;<br>
+&nbsp;<wbr>int length;<br>
+&nbsp;<wbr>int list_size;<br>
+}Sql;&nbsp;<wbr>&nbsp;<wbr>//Sql相当于 struct Sqlist</p>
+<p>/</p>							
+		</div>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
+  
+    <article id="post-括号配对" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/02/19/括号配对/">括号配对</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<p>#define TRUE 1<br>
+#define FALSE 0<br>
+#define STACK_INIT_SIZE 10002</p>
+<p>#include "iostream"<br>
+#include "cstdlib"<br>
+#include "cstdio"<br>
+#include "cstring"</p>
 <p>using namespace std;</p>
 <p>typedef int Status;&nbsp;<wbr>&nbsp;<wbr>//Status
 相当于 int</p>
-<p>typedef struct Node<br>
-{<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> int
-elem;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> struct Node
-*
-next;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
-
-}Node;//结点</p>
 <p>typedef struct Stack<br>
 {<br>
-&nbsp;<wbr>Node * base;<br>
-&nbsp;<wbr>Node * top;<br>
-}LinkStack;&nbsp;<wbr>//栈</p>
+&nbsp;<wbr>char * base;<br>
+&nbsp;<wbr>char * top;<br>
+}SqStack;&nbsp;<wbr></p>
 <p>//***********************函数的声明*****************************</p>
-<p>void&nbsp;<wbr> InitStack(LinkStack
+<p>void&nbsp;<wbr> InitStack(SqStack
 &amp;S)&nbsp;<wbr>//创建一个空栈<br>
 {</p>
-<p>&nbsp;<wbr>S.base = (Node *)malloc(sizeof(Node) );<br>
-&nbsp;<wbr>if(!S.base )
-exit(OVERFLOW);&nbsp;<wbr>//存储分配失败<br>
+<p>&nbsp;<wbr>S.base = (char *)malloc(sizeof(char) *
+STACK_INIT_SIZE);<br>
 &nbsp;<wbr>S.top = S.base;<br>
-&nbsp;<wbr>cout&lt;&lt;"初始化成功"&lt;&lt;endl;<br>
-&nbsp;<wbr>return ;<br>
 }</p>
-<p>Status StackEmpty(LinkStack S)//判断是否为空<br>
+<p>Status StackEmpty(SqStack S)//判断是否为空<br>
 {<br>
-&nbsp;<wbr>if(S.top == S.base)<br>
-&nbsp;<wbr>{<br>
-&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"栈为空！"&lt;&lt;endl;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>return TRUE;<br>
-&nbsp;<wbr>}<br>
+&nbsp;<wbr>if(S.top == S.base)&nbsp;<wbr>return
+TRUE;<br>
 &nbsp;<wbr>else return FALSE;<br>
-}<br>
-void TraverseStack(LinkStack S)//输出当前顺序表<br>
-{<br>
-&nbsp;<wbr>if(StackEmpty(S)) return ;<br>
-&nbsp;<wbr>Node * p = S.top ;<br>
-&nbsp;<wbr>cout&lt;&lt;"栈中的元素为：";<br>
-&nbsp;<wbr>while( p != S.base )<br>
-&nbsp;<wbr>{<br>
-&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;p-&gt;elem&lt;&lt;"
-";<br>
-&nbsp;<wbr>&nbsp;<wbr>p = p-&gt;next;<br>
-&nbsp;<wbr>}&nbsp;<wbr><br>
-&nbsp;<wbr>cout&lt;&lt;endl;<br>
-}<br>
-void Push(LinkStack &amp;S )//插入元素e为新的栈顶元素<br>
-{<br>
-&nbsp;<wbr>int e;<br>
-&nbsp;<wbr>cout&lt;&lt;"请输入要入栈的元素：";<br>
-&nbsp;<wbr>cin&gt;&gt;e;<br>
-&nbsp;<wbr><br>
-&nbsp;<wbr>Node * pNew = (Node *)malloc(sizeof(Node));<br>
-&nbsp;<wbr>if(pNew == NULL ) exit(OVERFLOW);</p>
-<p>&nbsp;<wbr>pNew-&gt;elem = e;<br>
-&nbsp;<wbr>pNew-&gt;next = S.top ;<br>
-&nbsp;<wbr>S.top = pNew;<br>
-}<br>
-void Pop(LinkStack &amp;S)//出栈，出栈元素为e<br>
-{<br>
-&nbsp;<wbr>if(StackEmpty(S)) return ;<br>
-&nbsp;<wbr>Node * p = S.top;<br>
-&nbsp;<wbr>p-&gt;elem = S.top-&gt;elem ;<br>
-&nbsp;<wbr>S.top = S.top-&gt;next;<br>
-&nbsp;<wbr>cout&lt;&lt;"出栈成功!出栈元素为"&lt;&lt;p-&gt;elem
-&lt;&lt;endl;<br>
-&nbsp;<wbr>free(p);<br>
-}<br>
-void StackLength(LinkStack S)//返回栈的长度<br>
-{&nbsp;<wbr><br>
-&nbsp;<wbr>int len = 0;<br>
-&nbsp;<wbr>if(StackEmpty(S)) return ;<br>
-&nbsp;<wbr>Node * p = S.top;<br>
-&nbsp;<wbr>while(p != S.base )<br>
-&nbsp;<wbr>{<br>
-&nbsp;<wbr>&nbsp;<wbr>len++;<br>
-&nbsp;<wbr>&nbsp;<wbr>p = p-&gt;next;<br>
-&nbsp;<wbr>}<br>
-&nbsp;<wbr>cout&lt;&lt;"栈的长度为："
-&lt;&lt;len&lt;&lt;endl;<br>
 }</p>
-<p>void GetTop(LinkStack S)<br>
+<p>void Push(SqStack &amp;S,char e
+)//插入元素e为新的栈顶元素<br>
 {<br>
-&nbsp;<wbr>if(StackEmpty(S)) return;</p>
-<p>&nbsp;<wbr>cout&lt;&lt;"栈顶元素为："&lt;&lt; S.top-&gt;elem
-&lt;&lt;endl;<br>
+&nbsp;<wbr>* S.top++ = e;<br>
+}<br>
+void Pop(SqStack &amp;S)//出栈<br>
+{<br>
+&nbsp;<wbr> S.top--;<br>
 }</p>
-<p>//***********************主函数*****************************<br>
-int main(void)<br>
+<p>char GetTop(SqStack S)<br>
 {<br>
-&nbsp;<wbr>LinkStack S;//定义一个栈<br>
-&nbsp;<wbr>int num,door = 1,init =0;<br>
-&nbsp;<wbr>while( door )<br>
-&nbsp;<wbr>{&nbsp;<wbr><br>
-&nbsp;<wbr>&nbsp;<wbr>printf("\n-------------------------------------------------------------\n");<br>
+&nbsp;<wbr>return *(S.top-1);<br>
+}</p>
+<p>void Matching()<br>
+{<br>
+&nbsp;<wbr>SqStack S;//定义一个栈<br>
+&nbsp;<wbr>&nbsp;<wbr>InitStack(S);<br>
+&nbsp;<wbr>&nbsp;<wbr>int flag = 1;<br>
+&nbsp;<wbr>&nbsp;<wbr>char str[10002];<br>
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"************请出如括号串（只包含“
+(,),{,},[,]
+”）***********"&lt;&lt;endl;<br>
+&nbsp;<wbr>&nbsp;<wbr>cin&gt;&gt;str;<br>
 
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-如要对链栈进行操作，请输入各项前面相应的数字\n");<br>
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-++++++++++++++++++++++++++++++\n");<br>
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|&nbsp;<wbr>1、初始化链栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|\n");<br>
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|&nbsp;<wbr>2、查看当前链栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|\n");<br>
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|&nbsp;<wbr>3、入栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|\n");<br>
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|&nbsp;<wbr>4、出栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|\n");<br>
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|&nbsp;<wbr>5、查看链栈长度&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|\n");<br>
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|&nbsp;<wbr>6、查看链栈栈顶元素&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|\n");<br>
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|&nbsp;<wbr>0、退出&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-|\n");<br>
-&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-++++++++++++++++++++++++++++++\n");</p>
-<p>&nbsp;<wbr>&nbsp;<wbr>printf(" 请输入数字进行操作：");<br>
-&nbsp;<wbr>&nbsp;<wbr>scanf("%d",&amp;num);<br>
-&nbsp;<wbr>&nbsp;<wbr>if(num==0||num==1||num==2||num==3||num==4||num==5||num==6||num==7)<br>
-
-&nbsp;<wbr>&nbsp;<wbr>{<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>switch( num
-)<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>{<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
-0:<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>door
-= 0;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
-1:<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>InitStack(
-S );<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>init=1;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;&nbsp;<wbr>&nbsp;<wbr><br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
-2:<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>TraverseStack(S);<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");&nbsp;<wbr><br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
-3:<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)&nbsp;<wbr>Push(S);<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
-4:<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)&nbsp;<wbr>Pop(S);<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
-5:<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)&nbsp;<wbr>StackLength(S);<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
-6:<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)&nbsp;<wbr>GetTop(S);<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");<br>
-
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
-
+&nbsp;<wbr>&nbsp;<wbr>for(int
+i=0;i&lt;strlen(str); ++i){//&nbsp;<wbr>
+([[]()])<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(StackEmpty(S)
+&amp;&amp; (str[i] == ']' || str[i] ==
+')'|| str[i] == '}')){//第一个字符就为‘]’或‘)’，直接输出No<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+flag = 0; break;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(str[i] ==
+'(' || str[i] == '['|| str[i] == '{'
+)&nbsp;<wbr>&nbsp;<wbr>Push(S,str[i]);//接受到‘（’或‘[’后入栈</p>
+<p>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( str[i]
+== ']' ){&nbsp;<wbr>//接受的为‘]’<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(GetTop(S)==
+'[')&nbsp;<wbr>Pop(S);//如果栈顶为'['，则出栈，否则括号不匹配，退出循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else
+{ flag = 0; break;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( str[i] ==
+')' ){&nbsp;<wbr>//接受的为‘)’<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
+GetTop(S)== '(' ) &nbsp;<wbr>Pop(S);
+//如果栈顶为')'，则出栈，否则括号不匹配，退出循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>
+{ flag = 0; break;}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( str[i] ==
+'}' ){&nbsp;<wbr>//接受的为‘}’<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
+GetTop(S)== '{' ) &nbsp;<wbr>Pop(S);
+//如果栈顶为'}'，则出栈，否则括号不匹配，退出循环<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else
+{ flag = 0; break;}<br>
 &nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
 &nbsp;<wbr>&nbsp;<wbr>}<br>
-&nbsp;<wbr>}</p>
-<p>&nbsp;<wbr>return 0;<br>
+&nbsp;<wbr>&nbsp;<wbr>if(flag
+&amp;&amp; StackEmpty(S))
+cout&lt;&lt;"Yes,括号匹配！"&lt;&lt;endl;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>if(!flag || !StackEmpty(S)
+)cout&lt;&lt;"No，括号不匹配！"&lt;&lt;endl;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>free(S.base );<br>
+}<br>
+//***********************主函数*****************************<br>
+int main()<br>
+{<br>
+&nbsp;<wbr>int door = 1;<br>
+&nbsp;<wbr>do{<br>
+&nbsp;<wbr>&nbsp;<wbr>Matching();<br>
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"是否要继续检测下一组括号(Y/N)：";<br>
+
+&nbsp;<wbr>&nbsp;<wbr>char ch;<br>
+&nbsp;<wbr>&nbsp;<wbr>cin&gt;&gt;ch;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>if(ch == 'N'|| ch == 'n') door
+= 0;<br>
+&nbsp;<wbr>}while(door);<br>
+&nbsp;<wbr><br>
+&nbsp;<wbr>return 0;<br>
 }</p>
 <p><br>
 &nbsp;<wbr><br></p>							
@@ -1403,7 +1571,7 @@ int main(void)<br>
 
 
   
-    <article id="post-顺序表" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-链栈" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
   </div>
@@ -1414,7 +1582,7 @@ int main(void)<br>
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/02/19/顺序表/">顺序表</a>
+      <a class="article-title" href="/2014/02/19/链栈/">链栈</a>
     </h1>
   
 
@@ -1428,22 +1596,209 @@ int main(void)<br>
 #define ERROR 0<br>
 #define TRUE 1<br>
 #define FALSE 0<br>
-#define INFEASIBLE -1<br>
-#define OVERFLOW -2<br>
-#define LIST_INIT_SIZE 15<br>
-#define LIST_INCREMENT 10</p>
+#define INFEASIBLE -2<br>
+#define OVERFLOW -1</p>
 <p>#include<br>
-#include<br>
 #include</p>
+<p>using namespace std;</p>
 <p>typedef int Status;&nbsp;<wbr>&nbsp;<wbr>//Status
-相当于 int<br>
-typedef struct Sqlist<br>
+相当于 int</p>
+<p>typedef struct Node<br>
 {<br>
-&nbsp;<wbr>int * elem;<br>
-&nbsp;<wbr>int length;<br>
-&nbsp;<wbr>int list_size;<br>
-}Sql;&nbsp;<wbr>&nbsp;<wbr>//Sql相当于 struct Sqlist</p>
-<p>/</p>							
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> int
+elem;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> struct Node
+*
+next;&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+
+}Node;//结点</p>
+<p>typedef struct Stack<br>
+{<br>
+&nbsp;<wbr>Node * base;<br>
+&nbsp;<wbr>Node * top;<br>
+}LinkStack;&nbsp;<wbr>//栈</p>
+<p>//***********************函数的声明*****************************</p>
+<p>void&nbsp;<wbr> InitStack(LinkStack
+&amp;S)&nbsp;<wbr>//创建一个空栈<br>
+{</p>
+<p>&nbsp;<wbr>S.base = (Node *)malloc(sizeof(Node) );<br>
+&nbsp;<wbr>if(!S.base )
+exit(OVERFLOW);&nbsp;<wbr>//存储分配失败<br>
+&nbsp;<wbr>S.top = S.base;<br>
+&nbsp;<wbr>cout&lt;&lt;"初始化成功"&lt;&lt;endl;<br>
+&nbsp;<wbr>return ;<br>
+}</p>
+<p>Status StackEmpty(LinkStack S)//判断是否为空<br>
+{<br>
+&nbsp;<wbr>if(S.top == S.base)<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"栈为空！"&lt;&lt;endl;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>return TRUE;<br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>else return FALSE;<br>
+}<br>
+void TraverseStack(LinkStack S)//输出当前顺序表<br>
+{<br>
+&nbsp;<wbr>if(StackEmpty(S)) return ;<br>
+&nbsp;<wbr>Node * p = S.top ;<br>
+&nbsp;<wbr>cout&lt;&lt;"栈中的元素为：";<br>
+&nbsp;<wbr>while( p != S.base )<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;p-&gt;elem&lt;&lt;"
+";<br>
+&nbsp;<wbr>&nbsp;<wbr>p = p-&gt;next;<br>
+&nbsp;<wbr>}&nbsp;<wbr><br>
+&nbsp;<wbr>cout&lt;&lt;endl;<br>
+}<br>
+void Push(LinkStack &amp;S )//插入元素e为新的栈顶元素<br>
+{<br>
+&nbsp;<wbr>int e;<br>
+&nbsp;<wbr>cout&lt;&lt;"请输入要入栈的元素：";<br>
+&nbsp;<wbr>cin&gt;&gt;e;<br>
+&nbsp;<wbr><br>
+&nbsp;<wbr>Node * pNew = (Node *)malloc(sizeof(Node));<br>
+&nbsp;<wbr>if(pNew == NULL ) exit(OVERFLOW);</p>
+<p>&nbsp;<wbr>pNew-&gt;elem = e;<br>
+&nbsp;<wbr>pNew-&gt;next = S.top ;<br>
+&nbsp;<wbr>S.top = pNew;<br>
+}<br>
+void Pop(LinkStack &amp;S)//出栈，出栈元素为e<br>
+{<br>
+&nbsp;<wbr>if(StackEmpty(S)) return ;<br>
+&nbsp;<wbr>Node * p = S.top;<br>
+&nbsp;<wbr>p-&gt;elem = S.top-&gt;elem ;<br>
+&nbsp;<wbr>S.top = S.top-&gt;next;<br>
+&nbsp;<wbr>cout&lt;&lt;"出栈成功!出栈元素为"&lt;&lt;p-&gt;elem
+&lt;&lt;endl;<br>
+&nbsp;<wbr>free(p);<br>
+}<br>
+void StackLength(LinkStack S)//返回栈的长度<br>
+{&nbsp;<wbr><br>
+&nbsp;<wbr>int len = 0;<br>
+&nbsp;<wbr>if(StackEmpty(S)) return ;<br>
+&nbsp;<wbr>Node * p = S.top;<br>
+&nbsp;<wbr>while(p != S.base )<br>
+&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>len++;<br>
+&nbsp;<wbr>&nbsp;<wbr>p = p-&gt;next;<br>
+&nbsp;<wbr>}<br>
+&nbsp;<wbr>cout&lt;&lt;"栈的长度为："
+&lt;&lt;len&lt;&lt;endl;<br>
+}</p>
+<p>void GetTop(LinkStack S)<br>
+{<br>
+&nbsp;<wbr>if(StackEmpty(S)) return;</p>
+<p>&nbsp;<wbr>cout&lt;&lt;"栈顶元素为："&lt;&lt; S.top-&gt;elem
+&lt;&lt;endl;<br>
+}</p>
+<p>//***********************主函数*****************************<br>
+int main(void)<br>
+{<br>
+&nbsp;<wbr>LinkStack S;//定义一个栈<br>
+&nbsp;<wbr>int num,door = 1,init =0;<br>
+&nbsp;<wbr>while( door )<br>
+&nbsp;<wbr>{&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>printf("\n-------------------------------------------------------------\n");<br>
+
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+如要对链栈进行操作，请输入各项前面相应的数字\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+++++++++++++++++++++++++++++++\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>1、初始化链栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>2、查看当前链栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>3、入栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>4、出栈&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>5、查看链栈长度&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>6、查看链栈栈顶元素&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|&nbsp;<wbr>0、退出&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+|\n");<br>
+&nbsp;<wbr>&nbsp;<wbr>printf("&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+++++++++++++++++++++++++++++++\n");</p>
+<p>&nbsp;<wbr>&nbsp;<wbr>printf(" 请输入数字进行操作：");<br>
+&nbsp;<wbr>&nbsp;<wbr>scanf("%d",&amp;num);<br>
+&nbsp;<wbr>&nbsp;<wbr>if(num==0||num==1||num==2||num==3||num==4||num==5||num==6||num==7)<br>
+
+&nbsp;<wbr>&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>switch( num
+)<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>{<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+0:<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>door
+= 0;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+1:<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>InitStack(
+S );<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>init=1;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;&nbsp;<wbr>&nbsp;<wbr><br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+2:<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>TraverseStack(S);<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");&nbsp;<wbr><br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+3:<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)&nbsp;<wbr>Push(S);<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+4:<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)&nbsp;<wbr>Pop(S);<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+5:<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)&nbsp;<wbr>StackLength(S);<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>case
+6:<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(init)&nbsp;<wbr>GetTop(S);<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>&nbsp;<wbr>printf("请先对顺序表进行初始化！\n");<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>break;<br>
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
+&nbsp;<wbr>&nbsp;<wbr>}<br>
+&nbsp;<wbr>}</p>
+<p>&nbsp;<wbr>return 0;<br>
+}</p>
+<p><br>
+&nbsp;<wbr><br></p>							
 		</div>
 
       
@@ -1680,159 +2035,6 @@ L3,L4;//定义两个链表代表两个一元多项式<br>
 &nbsp;<wbr>return 0;<br>
 }<br>
 <br></p>							
-		</div>
-
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
-    <article id="post-括号配对" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/02/19/括号配对/">括号配对</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-<div id="sina_keyword_ad_area2" class="articalContent  ">
-			<p>#define TRUE 1<br>
-#define FALSE 0<br>
-#define STACK_INIT_SIZE 10002</p>
-<p>#include "iostream"<br>
-#include "cstdlib"<br>
-#include "cstdio"<br>
-#include "cstring"</p>
-<p>using namespace std;</p>
-<p>typedef int Status;&nbsp;<wbr>&nbsp;<wbr>//Status
-相当于 int</p>
-<p>typedef struct Stack<br>
-{<br>
-&nbsp;<wbr>char * base;<br>
-&nbsp;<wbr>char * top;<br>
-}SqStack;&nbsp;<wbr></p>
-<p>//***********************函数的声明*****************************</p>
-<p>void&nbsp;<wbr> InitStack(SqStack
-&amp;S)&nbsp;<wbr>//创建一个空栈<br>
-{</p>
-<p>&nbsp;<wbr>S.base = (char *)malloc(sizeof(char) *
-STACK_INIT_SIZE);<br>
-&nbsp;<wbr>S.top = S.base;<br>
-}</p>
-<p>Status StackEmpty(SqStack S)//判断是否为空<br>
-{<br>
-&nbsp;<wbr>if(S.top == S.base)&nbsp;<wbr>return
-TRUE;<br>
-&nbsp;<wbr>else return FALSE;<br>
-}</p>
-<p>void Push(SqStack &amp;S,char e
-)//插入元素e为新的栈顶元素<br>
-{<br>
-&nbsp;<wbr>* S.top++ = e;<br>
-}<br>
-void Pop(SqStack &amp;S)//出栈<br>
-{<br>
-&nbsp;<wbr> S.top--;<br>
-}</p>
-<p>char GetTop(SqStack S)<br>
-{<br>
-&nbsp;<wbr>return *(S.top-1);<br>
-}</p>
-<p>void Matching()<br>
-{<br>
-&nbsp;<wbr>SqStack S;//定义一个栈<br>
-&nbsp;<wbr>&nbsp;<wbr>InitStack(S);<br>
-&nbsp;<wbr>&nbsp;<wbr>int flag = 1;<br>
-&nbsp;<wbr>&nbsp;<wbr>char str[10002];<br>
-&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"************请出如括号串（只包含“
-(,),{,},[,]
-”）***********"&lt;&lt;endl;<br>
-&nbsp;<wbr>&nbsp;<wbr>cin&gt;&gt;str;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>for(int
-i=0;i&lt;strlen(str); ++i){//&nbsp;<wbr>
-([[]()])<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(StackEmpty(S)
-&amp;&amp; (str[i] == ']' || str[i] ==
-')'|| str[i] == '}')){//第一个字符就为‘]’或‘)’，直接输出No<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
-flag = 0; break;<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(str[i] ==
-'(' || str[i] == '['|| str[i] == '{'
-)&nbsp;<wbr>&nbsp;<wbr>Push(S,str[i]);//接受到‘（’或‘[’后入栈</p>
-<p>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( str[i]
-== ']' ){&nbsp;<wbr>//接受的为‘]’<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(GetTop(S)==
-'[')&nbsp;<wbr>Pop(S);//如果栈顶为'['，则出栈，否则括号不匹配，退出循环<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else
-{ flag = 0; break;}<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( str[i] ==
-')' ){&nbsp;<wbr>//接受的为‘)’<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
-GetTop(S)== '(' ) &nbsp;<wbr>Pop(S);
-//如果栈顶为')'，则出栈，否则括号不匹配，退出循环<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else&nbsp;<wbr>
-{ flag = 0; break;}<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if( str[i] ==
-'}' ){&nbsp;<wbr>//接受的为‘}’<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>if(
-GetTop(S)== '{' ) &nbsp;<wbr>Pop(S);
-//如果栈顶为'}'，则出栈，否则括号不匹配，退出循环<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>else
-{ flag = 0; break;}<br>
-&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br>
-&nbsp;<wbr>&nbsp;<wbr>}<br>
-&nbsp;<wbr>&nbsp;<wbr>if(flag
-&amp;&amp; StackEmpty(S))
-cout&lt;&lt;"Yes,括号匹配！"&lt;&lt;endl;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>if(!flag || !StackEmpty(S)
-)cout&lt;&lt;"No，括号不匹配！"&lt;&lt;endl;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>free(S.base );<br>
-}<br>
-//***********************主函数*****************************<br>
-int main()<br>
-{<br>
-&nbsp;<wbr>int door = 1;<br>
-&nbsp;<wbr>do{<br>
-&nbsp;<wbr>&nbsp;<wbr>Matching();<br>
-&nbsp;<wbr>&nbsp;<wbr>cout&lt;&lt;"是否要继续检测下一组括号(Y/N)：";<br>
-
-&nbsp;<wbr>&nbsp;<wbr>char ch;<br>
-&nbsp;<wbr>&nbsp;<wbr>cin&gt;&gt;ch;<br>
-
-&nbsp;<wbr>&nbsp;<wbr>if(ch == 'N'|| ch == 'n') door
-= 0;<br>
-&nbsp;<wbr>}while(door);<br>
-&nbsp;<wbr><br>
-&nbsp;<wbr>return 0;<br>
-}</p>
-<p><br>
-&nbsp;<wbr><br></p>							
 		</div>
 
       
@@ -3781,68 +3983,6 @@ public class Main {
 <p></p>
 <pre></pre>
 </pre>
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
-    <article id="post-用Sqrt函数时，用C__提交容易编译出错，试试用G__" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/11/16/用Sqrt函数时，用C__提交容易编译出错，试试用G__/">用Sqrt函数时，用C++提交容易编译出错，试试用G++</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-<pre name="code" class="cpp">/***************************
-# 2013-11-16 17:30:17
-# Time: MS   Memory: K
-# Author: zyh
-***************************/
-
-#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-#include&lt;stdio.h&gt;
-#include&lt;math.h&gt;
-using namespace std;
-
-int main()
-{
-	int t,n,x0,y0,x1,y1,i;
-	double ans,a[210],tmp = 2.0;
-	a[0] = 0;a[1] = 1;
-	for(i=2;i&lt;205;i++)
-		a[i] = a[i-1]+ (i-1)*sqrt(tmp)+ sqrt( i*i + (i-1)*(i-1)); //这里用C++提交总是提示编译出错
-
-	scanf(&quot;%d&quot;,&amp;t);
-	while(t--){
-		scanf(&quot;%d%d%d%d&quot;,&amp;x0,&amp;y0,&amp;x1,&amp;y1);
-		if(x1+y1&lt;x0+y0) swap(x0,x1),swap(y0,y1);
-		printf(&quot;%.3lf\n&quot;, a[x1+y1] + (x1-x0)*sqrt(tmp)- a[x0+y0] );
-	}
-	return 0;
-}</pre><br>
-
       
     </div>
 </article>

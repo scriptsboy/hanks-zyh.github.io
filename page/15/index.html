@@ -104,6 +104,10 @@
       <ul>
         
           <li>
+            <a href="/2017/10/11/android-night-mode/">Android 夜间模式</a>
+          </li>
+        
+          <li>
             <a href="/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a>
           </li>
         
@@ -157,10 +161,6 @@
         
           <li>
             <a href="/2016/08/04/telegram-bot/">写一个福利 Telegram 机器人</a>
-          </li>
-        
-          <li>
-            <a href="/2016/07/31/write-butterkinfe/">写一个 ButterKnife</a>
           </li>
         
       </ul>
@@ -217,6 +217,236 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-HDU_题目1166_敌兵布阵" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/04/HDU_题目1166_敌兵布阵/">HDU 题目1166 敌兵布阵</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<p><br>
+</p>
+<p></p>
+<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
+敌兵布阵</h1>
+<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 29945&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 12848<br>
+</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Problem Description</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+C国的死对头A国这段时间正在进行军事演习，所以C国间谍头子Derek和他手下Tidy又开始忙乎了。A国在海岸线沿直线布置了N个工兵营地,Derek和Tidy的任务就是要监视这些工兵营地的活动情况。由于采取了某种先进的监测手段，所以每个工兵营地的人数C国都掌握的一清二楚,每个工兵营地的人数都有可能发生变动，可能增加或减少若干人手,但这些都逃不过C国的监视。<br>
+中央情报局要研究敌人究竟演习什么战术,所以Tidy要随时向Derek汇报某一段连续的工兵营地一共有多少人,例如Derek问:“Tidy,马上汇报第3个营地到第10个营地共有多少人!”Tidy就要马上开始计算这一段的总人数并汇报。但敌兵营地的人数经常变动，而Derek每次询问的段都不一样，所以Tidy不得不每次都一个一个营地的去数，很快就精疲力尽了，Derek对Tidy的计算速度越来越不满:&quot;你个死肥仔，算得这么慢，我炒你鱿鱼!”Tidy想：“你自己来算算看，这可真是一项累人的工作!我恨不得你炒我鱿鱼呢!”无奈之下，Tidy只好打电话向计算机专家Windbreaker求救,Windbreaker说：“死肥仔，叫你平时做多点acm题和看多点算法书，现在尝到苦果了吧!”Tidy说：&quot;我知错了。。。&quot;但Windbreaker已经挂掉电话了。Tidy很苦恼，这么算他真的会崩溃的，聪明的读者，你能写个程序帮他完成这项工作吗？不过如果你的程序效率不够高的话，Tidy还是会受到Derek的责骂的.<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+第一行一个整数T，表示有T组数据。<br>
+每组数据第一行一个正整数N（N&lt;=50000）,表示敌人有N个工兵营地，接下来有N个正整数,第i个正整数ai代表第i个工兵营地里开始时有ai个人（1&lt;=ai&lt;=50）。<br>
+接下来每行有一条命令，命令有4种形式：<br>
+(1) Add i j,i和j为正整数,表示第i个营地增加j个人（j不超过30）<br>
+(2)Sub i j ,i和j为正整数,表示第i个营地减少j个人（j不超过30）;<br>
+(3)Query i j ,i和j为正整数,i&lt;=j，表示询问第i到第j个营地的总人数;<br>
+(4)End 表示结束，这条命令在每组数据最后出现;<br>
+每组数据最多有40000条命令<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+对第i组数据,首先输出“Case i:”和回车,<br>
+对于每个Query询问，输出一个整数并回车,表示询问的段中的总人数,这个数保持在int以内。<br>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Input</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">1
+10
+1 2 3 4 5 6 7 8 9 10
+Query 1 3
+Add 3 6
+Query 2 7
+Sub 10 2
+Add 6 3
+Query 3 10
+End </div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<br style="font-family:'Times New Roman'; font-size:14px">
+<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
+Sample Output</div>
+<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
+<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">Case 1:
+6
+33
+59</div></pre>
+</div>
+<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
+&nbsp;</div>
+<div><br>
+</div>
+<br>
+<p></p>
+<p><strong><span style="font-size:18px">分析：树状数组的典型应用</span></strong></p>
+<p><strong><span style="font-size:18px">tree[ ] 存放树状数组，c[ ] 存放原始数据 ,</span></strong></p>
+<p><strong><span style="font-size:18px">tree[1] = c[1]; &nbsp;&nbsp;</span></strong></p>
+<p><strong><span style="font-size:18px">tree[2] = c[1]&#43;c[2]; &nbsp; &nbsp;&nbsp;</span><span style="font-size:18px">&nbsp;// lowbit( 2 ) = 2;</span></strong></p>
+<p><strong><span style="font-size:18px">tree[3] = c[3];</span></strong></p>
+<p><strong><span style="font-size:18px">tree[4] = c[1]&#43;c[2]&#43;c[3]&#43;c[4]; &nbsp;&nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit( 4 ) = 4 ;</span></strong></span></strong></p>
+<p><strong><span style="font-size:18px">tree[5] = c[5];</span></strong></p>
+<p><strong><span style="font-size:18px">tree[6] = c[5]&#43;c[6]; &nbsp;&nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit( 6 ) = 2;</span></strong></span></strong></p>
+<p><strong><span style="font-size:18px">tree[7] = c[7];</span></strong></p>
+<p><strong><span style="font-size:18px">tree[8] = c[1]&#43;c[2]&#43;c[3]&#43;c[4]&#43;c[5]&#43;c[6]&#43;c[7]&#43;c[8]; &nbsp; &nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit(8 ) = 8;</span></strong></span></strong></p>
+<p><strong><span style="font-size:18px">;;;;;一次AC&nbsp;</span></strong></p>
+<p><br>
+</p>
+<p><pre name="code" class="cpp">/*
+ 2013/08/04 22:53
+ author :zyh
+ 树状数组 
+*/
+
+#define N 50002
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+using namespace std;
+
+int n;
+int tree[N],c[N];
+
+int lowbit(int x)
+{
+	return x&amp;(-x);//返回值代表tree[i] 里面 包含 c[]里面的几项
+}
+
+void build_tree()
+{
+	int i,j;
+	for(i=1;i&lt;=n;i++)
+	{
+		if(i&amp;1) tree[i] = c[i];    //奇数
+		else
+		{
+			int temp = 0;
+			for(j=i-lowbit(i)+1;j&lt;=i;j++)
+			{
+				temp += c[j];
+			}
+			tree[i] = temp;
+		} 	
+	}
+	
+//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
+}
+
+void Add(int a,int b)
+{
+	int i;
+	for(i=a;i&lt;=n;)
+	{
+	 	tree[i] += b;
+	 	i += lowbit(i);
+	}
+//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
+}
+
+void Sub(int a,int b)
+{
+	int i;
+	for(i=a;i&lt;=n;)
+	{
+	 	tree[i] -= b;
+	 	i += lowbit(i);
+	}
+//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
+}
+
+int Sum(int b)
+{
+	int i,sum=0;
+	for(i=b;i&gt;=1;)
+	{
+		sum += tree[i];
+		i -= lowbit(i); 
+	}
+	return sum;
+}
+
+int main()
+{
+	int t,i,j,a,b;
+	char s[6];
+	scanf(&quot;%d&quot;,&amp;t);
+	for(i=1;i&lt;=t;i++)
+	{
+		memset(tree,0,sizeof(tree));
+		scanf(&quot;%d&quot;,&amp;n);
+		for(j=1;j&lt;=n;j++)
+			scanf(&quot;%d&quot;,&amp;c[j]);
+		build_tree();
+		
+		printf(&quot;Case %d:\n&quot;,i);
+		while(scanf(&quot;%s&quot;,s) &amp;&amp; s[0]!= 'E')
+		{
+			scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+			
+			switch(s[0])
+			{
+				case 'A':Add(a,b);break;
+				case 'S':Sub(a,b);break;
+				case 'Q':printf(&quot;%d\n&quot;,Sum(b)-Sum(a-1));break;
+			}
+		}
+	}
+	return 0;
+}</pre><br>
+<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
   
     <article id="post-HDU_题目3791_二叉搜索树" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -5079,299 +5309,6 @@ int main()
 }</pre><br>
 <br>
 </p>
-
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
-    <article id="post-最短路径_Dijksstra算法求最短路" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/07/29/最短路径_Dijksstra算法求最短路/">最短路径 Dijksstra算法求最短路</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-<span style="font-family:宋体; font-size:14px"></span>
-<div>
-<div><span style="font-size:18px"><span style="color:#000099">1.</span><span style="color:#000099"><strong>两地之间是否有通路?</strong></span></span></div>
-<div><span style="font-size:18px"><span style="color:#000099">2.</span><span style="color:#000099"><strong>若存在多条通路，哪条路最短？</strong></span></span></div>
-</div>
-<p><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-<span style="font-family:宋体"></span>
-<div>
-<div><span style="font-size:18px"><span style="color:#000099"><span style="color:#0033cc">●</span></span><span style="color:#000099"><strong>单源最短路径</strong></span></span></div>
-<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;&nbsp; </strong>
-</span>Single-Source Shortest Path</span></div>
-<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</strong></span>(Dijkstra<span style="color:#000099"><strong>算法</strong></span><span style="color:#000099"><strong>)</strong></span></span></div>
-<div><span style="font-size:18px"><span style="color:blue"><strong>&nbsp;&nbsp; </strong></span><span style="color:blue"><strong>负权边的有向图单源最短有路径</strong></span></span></div>
-<div><span style="font-size:18px">&nbsp;&nbsp;&nbsp; Bellman<strong>-</strong>Ford<strong>算法</strong></span></div>
-</div>
-<p><span style="font-size:18px">&nbsp;</span></p>
-<div>
-<div><span style="font-size:18px"><span style="color:#000099"><span style="color:#0033cc">●</span></span><span style="color:#000099"><strong>所有顶点对间的最短路径问题</strong></span></span></div>
-<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;&nbsp; </strong>
-</span>All-Pairs Shortest paths&nbsp;<span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>（</strong></span><span style="color:#000099"><strong>Floyd</strong></span></span><span style="font-size:18px; color:#000099"><strong>算法）<br>
-</strong></span></div>
-</div>
-<div>
-<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>问题: 带权有向图G（E,V), 找出从给定</strong><span style="color:#cc0000"><strong>源顶点</strong></span><span style="color:#cc0000"><strong><em>s</em></strong></span><strong>到</strong><span style="color:#cc0000"><strong>其它顶点</strong></span><span style="color:#cc0000"><strong><em>v</em></strong></span><strong>的权最小路径。</strong></span></div>
-<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>“最短路径” = 最小权
-</strong></span></div>
-<div><span style="font-size:18px"></span></div>
-</div>
-<p><span style="font-size:18px">&nbsp;</span></p>
-<p><span style="font-family:宋体; font-size:14px">&nbsp;在日常生活中，我们如果需要常常往返A地区和B地区之间，我们最希望知道的可能是从A地区到B地区间的众多路径中，那一条路径的路途最短。最短路径问题是图论研究中的一个经典算法问题，旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。</span><span style="font-family:宋体; font-size:14px">确定起点的最短路径问题：即已知起始结点，求最短路径的问题。</span></p>
-<p><span style="font-family:宋体; font-size:14px">&nbsp;Dijkstra算法</span></p>
-<p><span style="font-family:宋体; font-size:14px">　　Dijkstra算法是典型最短路算法，用于计算一个节点到其他所有节点的最短路径。主要特点是以起始点为中心向外层层扩展，直到扩展到终点为止。Dijkstra算法能得出最短路径的最优解，但由于它遍历计算的节点很多，所以效率低。</span></p>
-<p>如下图：</p>
-<p><span style="font-size:18px">&nbsp;</span></p>
-<div>
-<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>贪心算法：
-</strong></span></div>
-<div><strong><span style="font-size:18px">&nbsp; 基于以下原理：若顶点序列{Vs,V1,…,Vn} 是从Vs到Vn的最短路，则序列 {Vs,V1,…,Vn-1} 必为从Vs到Vn-1的最短路。</span></strong></div>
-<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>基本思想：
-</strong></span></div>
-<div><strong><span style="font-size:18px">&nbsp;&nbsp; 设置一个顶点集S，不断做贪心选择扩充这个集合。 </span></strong></div>
-<div><strong><span style="font-size:18px">&nbsp; 一个顶点属于S当且仅当从源到该顶点最短路径长度已知。 </span></strong></div>
-<div><strong></strong>&nbsp;</div>
-<div><strong></strong>&nbsp;</div>
-<div><img alt="" src="http://img.blog.csdn.net/20130729191755265"></div>
-<div>
-<div>
-<div><span style="font-size:18px"><span style="color:#000099"><span style="color:#0033cc">●</span></span><span style="color:#000099"><strong>图中从</strong></span><span style="color:#000099"><strong>v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到其余各顶点之间的最短路径</strong></span><span style="color:#000099"><strong>:</strong></span></span></div>
-<div><span style="font-size:18px"><span style="color:#000099"><strong>v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>1&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>无</strong></span><span style="color:#000099"><strong>&nbsp;</strong></span></span></div>
-<div><span style="font-size:18px"><span style="color:#000099"><strong>v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>2&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>(v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>,v</strong></span><span style="color:#000099"><strong>2</strong></span><span style="color:#000099"><strong>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>10</span></div>
-<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;</strong></span>v<span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>3&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>(v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>,v</strong></span><span style="color:#000099"><strong>4</strong></span><span style="color:#000099"><strong>,</strong></span><span style="color:#000099"><strong>v</strong></span><span style="color:#000099"><strong>3</strong></span><span style="color:#000099"><strong>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>50</span></div>
-<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;</strong></span>v<span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>4&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>(v</strong></span><span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>,v</strong></span><span style="color:#000099"><strong>4</strong></span><span style="color:#000099"><strong>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>30</span></div>
-<div><span style="font-size:18px"><span style="color:#000099"><strong>&nbsp;</strong></span>v<span style="color:#000099"><strong>0</strong></span><span style="color:#000099"><strong>到</strong></span><span style="color:#000099"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>v<span style="color:#000099"><strong>5&nbsp;&nbsp;&nbsp;</strong></span><span style="color:#000099"><strong>(</strong></span><span style="color:red"><strong>v</strong></span><span style="color:red"><strong>0</strong></span><span style="color:red"><strong>,v</strong></span><span style="color:red"><strong>4</strong></span><span style="color:red"><strong>,</strong></span><span style="color:red"><strong>v</strong></span><span style="color:red"><strong>3</strong></span><span style="color:red"><strong>,v</strong></span><span style="color:red"><strong>5</strong></span><span style="color:#000099"><strong>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span>60</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div>
-<div>
-<div><span style="font-size:18px"><span style="color:#0033cc">●</span>&nbsp; <strong>初始时,S仅包含源s,
-</strong></span></div>
-<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>&nbsp;</strong><span style="color:#cc0000"><strong>特殊路径：</strong></span></span></div>
-<div><span style="font-size:18px"><strong>&nbsp; 从源到G中某一顶点u且中间只经过S中顶点的路称为</strong><span style="color:#cc0000"><strong>从源到</strong></span><span style="color:#cc0000"><strong>u</strong></span><span style="color:#cc0000"><strong>的特殊路径</strong></span><strong>。</strong></span></div>
-<div><span style="font-size:18px"></span></div>
-<div><span style="font-size:18px"><span style="color:#0033cc">●</span><strong>&nbsp;算法每次从</strong><span style="color:#cc0000"><strong>V-S</strong></span><strong>中取出具有</strong><span style="color:#cc0000"><strong>最短特殊路径</strong></span></span></div>
-<div><strong><span style="font-size:18px">&nbsp;&nbsp; 长度的顶点u加入S中。 </span></strong></div>
-<div>
-<div>
-<div><span style="font-size:18px"><span style="color:#cc0000"><span style="color:#0033cc">●</span></span><span style="color:#cc0000"><strong>算法思想:</strong></span></span></div>
-<div><span style="font-size:18px"><span style="color:#cc0000"><strong>&nbsp;&nbsp; </strong>
-</span>按路径长度递增序产生各顶点最短路径</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div>用到的变量：</div>
-<div>&nbsp;</div>
-<div><span style="font-size:18px">int&nbsp; G[maxnum][maxnum]; //邻接矩阵,距离无限远用9999表示</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div><span style="font-size:18px">int&nbsp; dist[maxnum]; //存放各个顶点到源点的寻短路径；</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div><span style="font-size:18px">bool&nbsp; visit[maxnum] ;&nbsp; //标志该定点是否被访问，初始化wei 0</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div><span style="font-size:18px">int last;//表示当前所走路径最后一个节点</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div><span style="font-size:18px">利用贪心算法，首先从原点出发，初始化dist[maxnum]; 假如源点v0，顶点数目6&nbsp; (v0,v1,v2,v3,v4,v5)；</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div><span style="font-size:18px">for i=0 to&nbsp;5 ,dist[i]=G[0][i];&nbsp;&nbsp;&nbsp;</span></div>
-<div><span style="font-size:18px">&nbsp;然后dist[0] = 0;//到本身距离为0， 再标记V0点， visit[0] = 1;//以访问v0点，</span></div>
-<div><span style="font-size:18px">此时dist[5]={0,9999,30,9999,30,100};&nbsp; visit[]={1,0,0,0,0,0};&nbsp; last = 0;//v0点为当前路径最后一个</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div><span style="font-size:18px">然后for循环，寻找从源点到其他店的最小距离，并且该点未被访问，</span></div>
-<div><strong><span style="font-size:24px"></span></strong>&nbsp;</div>
-<div><span style="font-size:24px"><strong></strong></span><pre class="cpp" name="code">int min = 9999;
-for(j=0;j&lt;n;j++) 
-{
-    if(!visit[j] &amp;&amp; min&lt; G[v0][j])
-   {
-         min = G[last][j];
-                    last = j;
-   }
-}
-</pre><br>
-&nbsp;</div>
-<div><span style="font-size:18px">得到 last=2；//将v2加入当前路径 ，&nbsp;&nbsp;&nbsp; visit[last] = 1;&nbsp;</span></div>
-<div><span style="font-size:18px">visit[] = {1,0,1,0,0,0}</span></div>
-<div><span style="font-size:18px">&nbsp;</span></div>
-<div><span style="font-size:18px">然后将dist[]数组更新。, 更新为V0到各个点的最短路径</span>
-<div><span style="font-size:18px">然后循环，直到所有结点都被访问；</span></div>
-</div>
-<div><strong><span style="font-size:24px"></span></strong>&nbsp;</div>
-<div><strong><span style="font-size:24px"></span></strong><pre class="cpp" name="code">for(j=0;j&lt;n;j++)
- { 
-         if(!visit[j] &amp;&amp; G[last][j]!=99999)
-          { 
-                   int newdist = dist[last] + G[last][j];
-                   if(newdist &lt; dist[j])
-                        { 
-                                dist[j] = newdist;
-                                     prev[j] = last;
-                         } 
-            } 
- }
- 
-</pre><br>
-&nbsp;</div>
-<div><span style="font-size:24px"><strong></strong></span>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>练习：&nbsp; <a target="_blank" href="http://acm.hdu.edu.cn/showproblem.php?pid=2544">
-Hdu 2544</a>&nbsp;&nbsp; <a target="_blank" href="http://acm.hdu.edu.cn/showproblem.php?pid=1874">
-hdu1874</a></div>
-<div>&nbsp;</div>
-<div><pre class="cpp" name="code">#include &lt;iostream&gt;
-
-using namespace std;
-
-void Dijkstra(int n,int v,int *dist,int *prev,int G[102][102]) 
-{
-    bool visit[102];//存放顶点是否被访问
-    int i,j;
-    for(i=1; i&lt;=n; i++)
-    {
-        visit[i] = 0;
-        dist[i] = G[v][i];
-        if(dist[i]== 99999) prev[i] = 0;
-        else prev[i] = v;    
-    } 
-    
-    dist[v] = 0; 
-    visit[v] = 1;
-    
-     for(i=2;i&lt;=n;i++)//访问剩下的点
-     {
-        int last = v;
-        int min = 99999; 
-        //寻找本行未使用点j的dist[j]最小值
-        for(j=1;j&lt;=n;j++)
-        {
-            if(!visit[j]&amp;&amp; min&gt;dist[j])    
-            {
-                
-                min = dist[j];
-                last = j;//距离最小点的号码 
-            }
-        }    
-        
-        visit[last] = 1;//访问该距离最小点
-        
-        //将dist[]刷新
-        for(j=1;j&lt;=n;j++)
-        {
-            if(!visit[j] &amp;&amp; G[last][j]!=99999)
-            {
-                int newdist = dist[last] + G[last][j];
-                
-                if(newdist &lt; dist[j])
-                {
-                    dist[j] = newdist;
-                    prev[j] = last;    
-                }
-            }
-    //        printf(&quot;%d &quot;,dist[j]);    
-        }    
-    //    printf(&quot;\n&quot;);
-    } 
-}
-
-
-int main()
-{
-
-    int i,j,a,b,c;
-    int dist[102];  
-    int prev[102];  //记录当前点的前一个结点
-    int G[102][102];
-    int vnum,m; 
-    
-    while(scanf(&quot;%d%d&quot;,&amp;vnum,&amp;m),m&amp;&amp;vnum)
-    {    
-        
-        for(i=1;i&lt;=vnum;i++)
-            for(j=1;j&lt;=vnum;j++)
-                G[i][j] = 99999;
-    
-        while(m--)
-        {
-            scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
-            G[a][b] = G[b][a] = c;    
-        }
-        
-        for(i=1;i&lt;=vnum;i++)
-            dist[i] = 99999; //原点到各个点距离初始化
-        
-    //    for(i=1;i&lt;=vnum;i++) //输出创建的邻接矩阵 
-//        {
-//            for(j=1;j&lt;=vnum;j++)
-//                printf(&quot;%4d&quot;,G[i][j]);
-//            printf(&quot;\n&quot;);
-//        } 
-
-        Dijkstra(vnum,1,dist,prev,G);
-        printf(&quot;%d\n&quot;,dist[vnum]);
-    
-    }
-    
-    return 0;    
-}</pre><br>
-</div>
-<div><span style="font-size:24px"><strong></strong></span>&nbsp;</div>
-<div><span style="font-size:24px"><strong></strong></span>&nbsp;</div>
-<div><span style="font-size:24px"><strong></strong></span>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 
       
     </div>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://hanks.pub/"/>
-  <updated>2017-09-28T08:44:22.849Z</updated>
+  <updated>2017-10-11T10:41:34.467Z</updated>
   <id>http://hanks.pub/</id>
   
   <author>
@@ -16,13 +16,43 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Android 夜间模式</title>
+    <link href="http://hanks.pub/2017/10/11/android-night-mode/"/>
+    <id>http://hanks.pub/2017/10/11/android-night-mode/</id>
+    <published>2017-10-11T09:11:50.000Z</published>
+    <updated>2017-10-11T10:41:34.467Z</updated>
+    
+    <content type="html"><![CDATA[<p>比较几种夜间模式（主题切换）的实现</p>
+<h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><p>系统提供的 setTheme， 然后走 recreate ，方法比较简单粗暴。缺点：recreate 导致界面会闪烁。</p>
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><p>系统提供的 AppCompatDelegate.setDefaultNightMode(int mode); 然后 recreate 。缺点同第一种方法，优点是夜间模式直接走 drawable-night、values-night 等 -night 的资源。</p>
+<h3 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h3><p>先 setTheme ，然后便利界面 ui，每个被标记的 view 重新设置颜色。优点：界面会闪烁。缺点需要标记view，遍历 view，还有考虑 view 缓存状态的刷新。</p>
+<h3 id="第四种"><a href="#第四种" class="headerlink" title="第四种"></a>第四种</h3><p>先 setTheme， 然后重建 fragment，通过 <code>Fragment.SavedState state =  FragmentManager().saveFragmentInstanceState(oldFragment)</code> 保存旧的fragment状态，然后重新创建新的 fragment，最后 <code>fragment.setInitialSavedState(state);</code> ，再恢复状态。这种情况一般就是主界面一个MainActivity，然后界面套一个 MainFragment，这样，只需重新创建 fragment 就可以达到启用新的 theme。需要注意的地方： 保存数据的时候，大的数据不能通过 onSaveInstanceState 保存，一方面 bundle可能会超过大学，另一方面会有序列化/反序列化问题，可直接放在成员变量中。可参考官方文档<a href="https://developer.android.com/guide/topics/resources/runtime-changes.html#RetainingAnObject" target="_blank" rel="external">在配置变更期间保留对象</a></p>
+<p><img src="http://o6epsoek1.bkt.clouddn.com/S71011-17573903%20%281%29.gif?imageView/2/w/360/h/640/q/80" alt=""></p>
+<blockquote>
+<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;比较几种夜间模式（主题切换）的实现&lt;/p&gt;
+&lt;h3 id=&quot;第一种&quot;&gt;&lt;a href=&quot;#第一种&quot; class=&quot;headerlink&quot; title=&quot;第一种&quot;&gt;&lt;/a&gt;第一种&lt;/h3&gt;&lt;p&gt;系统提供的 setTheme， 然后走 recreate ，方法比较简单粗暴。缺点
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Lua 嵌入 Android 原理</title>
     <link href="http://hanks.pub/2017/09/28/lua-into-android/"/>
     <id>http://hanks.pub/2017/09/28/lua-into-android/</id>
     <published>2017-09-28T08:42:46.000Z</published>
-    <updated>2017-09-28T08:44:22.849Z</updated>
+    <updated>2017-10-11T09:11:16.519Z</updated>
     
-    <content type="html"><![CDATA[<p>Lua 作为一个轻量、灵魂的嵌入式脚本语言，可供任何需要的程序使用。lua 可利用 C API 方便的嵌入其他系统。</p>
+    <content type="html"><![CDATA[<p>Lua 作为一个轻量、灵活的嵌入式脚本语言，可供任何需要的程序使用。lua 可利用 C API 方便的嵌入其他系统。</p>
 <a id="more"></a>
 <h2 id="Lua-与-C-交互"><a href="#Lua-与-C-交互" class="headerlink" title="Lua 与 C 交互"></a>Lua 与 C 交互</h2><p>通过虚拟栈 栈顶元素索引 -1，栈底元素索引 1</p>
 <h3 id="C-调用-Lua"><a href="#C-调用-Lua" class="headerlink" title="C 调用 Lua"></a>C 调用 Lua</h3><p><code>a.lua</code></p>
@@ -68,7 +98,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;Lua 作为一个轻量、灵魂的嵌入式脚本语言，可供任何需要的程序使用。lua 可利用 C API 方便的嵌入其他系统。&lt;/p&gt;
+      &lt;p&gt;Lua 作为一个轻量、灵活的嵌入式脚本语言，可供任何需要的程序使用。lua 可利用 C API 方便的嵌入其他系统。&lt;/p&gt;
     
     </summary>
     
@@ -805,53 +835,6 @@
       <category term="JavaScript" scheme="http://hanks.pub/tags/JavaScript/"/>
     
       <category term="前端" scheme="http://hanks.pub/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>利用 Android 手机打造来电通知计划</title>
-    <link href="http://hanks.pub/2016/06/21/motifyme/"/>
-    <id>http://hanks.pub/2016/06/21/motifyme/</id>
-    <published>2016-06-21T15:38:27.000Z</published>
-    <updated>2017-07-10T11:02:58.200Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近住的地方总在晚上停电，还让不让人活了，大热天的，于是就晚上在外面先找个凉快的地方呆着，但是来电的时间不确定，有时候感觉应该来电了，回去了还是没电，那个热啊。那么问题来了，要是屋里来电了有人告诉我就好了！于是计划写一个小程序让它在屋里来电后通知。<br><a id="more"></a><br>利用现用资源：一台<strong>退休的手机</strong><br>大概思路是这样的：家里的路由器是一直连着电源的，老手机是一直开着 wifi 的，来电后路由器通电，自动连接上网络，这个时候手机也检测到网络，连接上了 wifi，然后后台程序通过此判断来电了，再让老手机给我发短信通知，收到来电通知后我就可以回去了吹电扇了！</p>
-<p>来来来，开始写程序</p>
-<ol>
-<li>首先开启一个后台服务 <code>NetCheckService</code>，1分钟执行一次。记得 AndroidMenifest.xml 注册。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by hanks on 16/6/21.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NetCheckService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String LAST_STATUS = <span class="string">"lastStatus"</span>; </div><div class="line">    <span class="meta">@Nullable</span> <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 服务开启</span></div><div class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onStartCommand</span><span class="params">(Intent intent, <span class="keyword">int</span> flags, <span class="keyword">int</span> startId)</span> </span>&#123;</div><div class="line">        handleIntent();</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent, flags, startId);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">handleIntent</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> Thread()&#123;</div><div class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">while</span> (<span class="keyword">true</span>)&#123; </div><div class="line">                    System.out.println(<span class="string">"onStart"</span>);</div><div class="line">                    </div><div class="line">                    <span class="comment">// 判断是否来电了</span></div><div class="line">                    handleStatus();</div><div class="line"></div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        Thread.sleep(<span class="number">60</span>*<span class="number">1000</span>);</div><div class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125;</div><div class="line">                    System.out.println(<span class="string">"----耗时任务执行完成---"</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;.start();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>检测网络</li>
-</ol>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">/**</span></div><div class="line"> * 检测当的网络状态</div><div class="line"> * <span class="doctag">@return</span> true 表示网络可用</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">boolean</span> <span class="title">isNetworkAvailable</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">    ConnectivityManager connectivity = (ConnectivityManager) context</div><div class="line">            .getSystemService(Context.CONNECTIVITY_SERVICE);</div><div class="line">    <span class="keyword">if</span> (connectivity != <span class="keyword">null</span>) &#123;</div><div class="line">        NetworkInfo info = connectivity.getActiveNetworkInfo();</div><div class="line">        <span class="keyword">if</span> (info != <span class="keyword">null</span> &amp;&amp; info.isConnected()) &#123;</div><div class="line">            <span class="comment">// 当前网络是连接的</span></div><div class="line">            <span class="keyword">if</span> (info.getState() == NetworkInfo.State.CONNECTED) &#123;</div><div class="line">                <span class="comment">// 当前所连接的网络可用</span></div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>判断是否来电了, <strong>记得注册相应的权限</strong>。</li>
-</ol>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">private</span> <span class="function"><span class="keyword">boolean</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;</div><div class="line">    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</div><div class="line">    <span class="function"><span class="keyword">return</span> sp.<span class="title">getBoolean</span><span class="params">(LAST_STATUS, <span class="keyword">false</span>)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">updateStatus</span><span class="params">(<span class="keyword">boolean</span> isAvailable)</span> </span>&#123;</div><div class="line">    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());</div><div class="line">    SharedPreferences.Editor editor = sp.edit();</div><div class="line">    editor.putBoolean(LAST_STATUS, isAvailable);</div><div class="line">    editor.apply();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">void</span> <span class="title">hanldeStatus</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> lastStatus = getStatus();</div><div class="line">    <span class="comment">// 检测网络状况</span></div><div class="line">    <span class="keyword">boolean</span> isNetworkAvailable = isNetworkAvailable(getApplicationContext());</div><div class="line">    <span class="comment">// 如果原来网络不可用 &amp;&amp; 现在可用了</span></div><div class="line">    <span class="keyword">if</span> (!lastStatus &amp;&amp; isNetworkAvailable) &#123;</div><div class="line">        <span class="comment">// 发送短信</span></div><div class="line">        sendSMS();</div><div class="line">    &#125;</div><div class="line">    System.out.println(<span class="string">"isNetworkAvailable = "</span> + isNetworkAvailable);</div><div class="line">    <span class="comment">// 更新网络状态</span></div><div class="line">    updateStatus(isNetworkAvailable);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>定期检测手机连接网络的状态，如果当前网络是可用状态并且上次是不可用状态，那么就说明来电了，然后就发送短信通知我<br>发送短信就使用的 ShareSDK 的。自定义短信模板还要审核，所以暂时用系统默认的。</li>
-</ol>
-<p><img src="http://ww2.sinaimg.cn/large/8c9b876fjw1f53acno7raj20k00zkjss.jpg" alt="收到短信" style="width: 400px;"></p>
-<p>还不完善的地方：</p>
-<ul>
-<li>手机服务很有可能被杀死。</li>
-<li>短信模板。</li>
-</ul>
-<blockquote>
-<p>还有一种思路就是手机一直充着电，检测手机电池状态是否为充电。</p>
-<p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近住的地方总在晚上停电，还让不让人活了，大热天的，于是就晚上在外面先找个凉快的地方呆着，但是来电的时间不确定，有时候感觉应该来电了，回去了还是没电，那个热啊。那么问题来了，要是屋里来电了有人告诉我就好了！于是计划写一个小程序让它在屋里来电后通知。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="Android" scheme="http://hanks.pub/tags/Android/"/>
     
   </entry>
   

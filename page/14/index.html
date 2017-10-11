@@ -104,6 +104,10 @@
       <ul>
         
           <li>
+            <a href="/2017/10/11/android-night-mode/">Android 夜间模式</a>
+          </li>
+        
+          <li>
             <a href="/2017/09/28/lua-into-android/">Lua 嵌入 Android 原理</a>
           </li>
         
@@ -157,10 +161,6 @@
         
           <li>
             <a href="/2016/08/04/telegram-bot/">写一个福利 Telegram 机器人</a>
-          </li>
-        
-          <li>
-            <a href="/2016/07/31/write-butterkinfe/">写一个 ButterKnife</a>
           </li>
         
       </ul>
@@ -217,6 +217,159 @@
 </aside>
         
         <section id="main" class="mdl-shadow--2dp">
+  
+    <article id="post-hdu_题目1010_Tempter_of_the_Bone（DFS_奇偶剪枝）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/09/hdu_题目1010_Tempter_of_the_Bone（DFS_奇偶剪枝）/">hdu 题目1010 Tempter of the Bone（DFS+奇偶剪枝）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<h1 align="center" style="color:#1a5cc8">Tempter of the Bone</h1>
+<p align="center"><span size="&#43;0"><strong><span style="font-family:Arial; font-size:12px; color:green; font-weight:bold">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
+Total Submission(s): 54205&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 14593<br>
+</span></strong></span><br>
+<br>
+</p>
+<div class="panel_title" align="left">Problem Description</div>
+<div class="panel_content">The doggie found a bone in an ancient maze, which fascinated him a lot. However, when he picked it up, the maze began to shake, and the doggie could feel the ground sinking. He realized that the bone was a trap, and he tried desperately
+ to get out of this maze.<br>
+<br>
+The maze was a rectangle with sizes N by M. There was a door in the maze. At the beginning, the door was closed and it would open at the T-th second for a short period of time (less than 1 second). Therefore the doggie had to arrive at the door on exactly the
+ T-th second. In every second, he could move one block to one of the upper, lower, left and right neighboring blocks. Once he entered a block, the ground of this block would start to sink and disappear in the next second. He could not stay at one block for
+ more than one second, nor could he move into a visited block. Can the poor doggie survive? Please help him.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Input</div>
+<div class="panel_content">The input consists of multiple test cases. The first line of each test case contains three integers N, M, and T (1 &lt; N, M &lt; 7; 0 &lt; T &lt; 50), which denote the sizes of the maze and the time at which the door will open, respectively.
+ The next N lines give the maze layout, with each line containing M characters. A character is one of the following:<br>
+<br>
+'X': a block of wall, which the doggie cannot enter; <br>
+'S': the start point of the doggie; <br>
+'D': the Door; or<br>
+'.': an empty block.<br>
+<br>
+The input is terminated with three 0's. This test case is not to be processed.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Output</div>
+<div class="panel_content">For each test case, print in one line &quot;YES&quot; if the doggie can survive, or &quot;NO&quot; otherwise.<br>
+</div>
+<div class="panel_bottom">&nbsp;</div>
+<p><br>
+&nbsp;</p>
+<div class="panel_title" align="left">Sample Input</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">4 4 5
+S.X.
+..X.
+..XD
+....
+3 4 5
+S.X.
+..X.
+...D
+0 0 0</div></pre>
+</div>
+<div class="panel_bottom">&nbsp;<br>
+</div>
+<div class="panel_title" align="left">Sample Output</div>
+<div class="panel_content">
+<pre><div style="font-family:Courier New,Courier,monospace">NO
+YES</div></pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>DFS&#43;奇偶剪枝：</p>
+<p>1.先按照原来的DFS来写，最后加上奇偶剪枝的条件</p>
+<p>&nbsp;</p>
+<pre class="cpp" name="code">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+
+char a[9][9];
+bool vis[9][9],flag;
+int m,n,e_x,e_y;
+
+void DFS(int x,int y,int step)
+{
+    if(flag || x&lt;0 || x&gt;=n || y&lt;0 || y&gt;=m ) return;//已到达终点后面不需再判断
+  
+    if(step==0 &amp;&amp; a[x][y]=='D') { flag=1;  return;}//到达终点
+    
+    if(step&lt; abs(x-e_x)+abs(y-e_y) || (step-(abs(x-e_x)+abs(y-e_y))&amp;1)) return ;//奇偶剪枝
+    
+    if(!vis[x+1][y] &amp;&amp; a[x+1][y]!='X') 
+	{  vis[x+1][y]=1;  DFS(x+1,y,step-1); vis[x+1][y]=0; }
+	
+    if(!vis[x][y+1] &amp;&amp; a[x][y+1]!='X')
+	{  vis[x][y+1]=1;  DFS(x,y+1,step-1); vis[x][y+1]=0; } 
+	
+    if(!vis[x-1][y] &amp;&amp; a[x-1][y]!='X') 
+	{ vis[x-1][y]=1;   DFS(x-1,y,step-1); vis[x-1][y]=0;}
+	
+    if(!vis[x][y-1] &amp;&amp; a[x][y-1]!='X') 
+	{ vis[x][y-1]=1;   DFS(x,y-1,step-1); vis[x][y-1]=0;}
+}
+
+int main()
+{
+    int t,i,j,s_x,s_y;
+    while(scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;t),!(n==0&amp;&amp;m==0&amp;&amp;t==0))
+    {
+        getchar();//吸收回车 
+        
+        for(i=0;i&lt;n;i++){
+            for(j=0;j&lt;m;j++){
+                a[i][j] = getchar();
+                if(a[i][j]=='S'){ s_x = i; s_y = j;}//起点位置
+                if(a[i][j]=='D'){ e_x = i; e_y = j;} //终点位置
+            }  getchar();//吸收回车 
+        }
+
+        flag=0;	memset(vis,0,sizeof(vis));  
+	vis[s_x][s_y]=1; //!!!!!!!!!起点置1 ，这一点在开始忘了</pre><pre class="cpp" name="code">
+        DFS(s_x,s_y,t); 
+		 
+        if(flag) printf(&quot;YES\n&quot;);
+        else printf(&quot;NO\n&quot;);
+    }
+    return 0;
+}</pre>
+<p><br>
+&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+</article>
+ 
+ <!-- 上一页 下一页 -->
+
+
+<!-- 相关文章 -->
+
+
+
+
   
     <article id="post-POJ_题目1088_滑雪（记忆搜索）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -3752,236 +3905,6 @@ int main()
 &nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-
-      
-    </div>
-</article>
- 
- <!-- 上一页 下一页 -->
-
-
-<!-- 相关文章 -->
-
-
-
-
-  
-    <article id="post-HDU_题目1166_敌兵布阵" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/08/04/HDU_题目1166_敌兵布阵/">HDU 题目1166 敌兵布阵</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-<p><br>
-</p>
-<p></p>
-<h1 style="color:rgb(26,92,200); text-align:center; font-family:'Times New Roman'">
-敌兵布阵</h1>
-<span style="font-family:'Times New Roman'; font-size:14px"><strong><span style="font-family:Arial; font-size:12px; color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/32768 K (Java/Others)<br>
-Total Submission(s): 29945&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 12848<br>
-</span></strong></span><br style="font-family:'Times New Roman'; font-size:14px">
-<br style="font-family:'Times New Roman'; font-size:14px">
-<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
-Problem Description</div>
-<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
-C国的死对头A国这段时间正在进行军事演习，所以C国间谍头子Derek和他手下Tidy又开始忙乎了。A国在海岸线沿直线布置了N个工兵营地,Derek和Tidy的任务就是要监视这些工兵营地的活动情况。由于采取了某种先进的监测手段，所以每个工兵营地的人数C国都掌握的一清二楚,每个工兵营地的人数都有可能发生变动，可能增加或减少若干人手,但这些都逃不过C国的监视。<br>
-中央情报局要研究敌人究竟演习什么战术,所以Tidy要随时向Derek汇报某一段连续的工兵营地一共有多少人,例如Derek问:“Tidy,马上汇报第3个营地到第10个营地共有多少人!”Tidy就要马上开始计算这一段的总人数并汇报。但敌兵营地的人数经常变动，而Derek每次询问的段都不一样，所以Tidy不得不每次都一个一个营地的去数，很快就精疲力尽了，Derek对Tidy的计算速度越来越不满:&quot;你个死肥仔，算得这么慢，我炒你鱿鱼!”Tidy想：“你自己来算算看，这可真是一项累人的工作!我恨不得你炒我鱿鱼呢!”无奈之下，Tidy只好打电话向计算机专家Windbreaker求救,Windbreaker说：“死肥仔，叫你平时做多点acm题和看多点算法书，现在尝到苦果了吧!”Tidy说：&quot;我知错了。。。&quot;但Windbreaker已经挂掉电话了。Tidy很苦恼，这么算他真的会崩溃的，聪明的读者，你能写个程序帮他完成这项工作吗？不过如果你的程序效率不够高的话，Tidy还是会受到Derek的责骂的.<br>
-</div>
-<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
-&nbsp;</div>
-<br style="font-family:'Times New Roman'; font-size:14px">
-<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
-Input</div>
-<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
-第一行一个整数T，表示有T组数据。<br>
-每组数据第一行一个正整数N（N&lt;=50000）,表示敌人有N个工兵营地，接下来有N个正整数,第i个正整数ai代表第i个工兵营地里开始时有ai个人（1&lt;=ai&lt;=50）。<br>
-接下来每行有一条命令，命令有4种形式：<br>
-(1) Add i j,i和j为正整数,表示第i个营地增加j个人（j不超过30）<br>
-(2)Sub i j ,i和j为正整数,表示第i个营地减少j个人（j不超过30）;<br>
-(3)Query i j ,i和j为正整数,i&lt;=j，表示询问第i到第j个营地的总人数;<br>
-(4)End 表示结束，这条命令在每组数据最后出现;<br>
-每组数据最多有40000条命令<br>
-</div>
-<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
-&nbsp;</div>
-<br style="font-family:'Times New Roman'; font-size:14px">
-<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
-Output</div>
-<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
-对第i组数据,首先输出“Case i:”和回车,<br>
-对于每个Query询问，输出一个整数并回车,表示询问的段中的总人数,这个数保持在int以内。<br>
-</div>
-<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
-&nbsp;</div>
-<br style="font-family:'Times New Roman'; font-size:14px">
-<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
-Sample Input</div>
-<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
-<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">1
-10
-1 2 3 4 5 6 7 8 9 10
-Query 1 3
-Add 3 6
-Query 2 7
-Sub 10 2
-Add 6 3
-Query 3 10
-End </div></pre>
-</div>
-<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
-&nbsp;</div>
-<br style="font-family:'Times New Roman'; font-size:14px">
-<div class="panel_title" align="left" style="height:38px; background-color:transparent; padding:0px 14px; color:rgb(124,169,237); font-size:18px; font-family:Arial; font-weight:bold">
-Sample Output</div>
-<div class="panel_content" style="height:auto; margin:0px; padding:0px 20px; font-size:14px; font-family:'Times New Roman'">
-<pre style="margin-top:0px; margin-bottom:0px"><div style="font-family:'Courier New',Courier,monospace">Case 1:
-6
-33
-59</div></pre>
-</div>
-<div class="panel_bottom" style="height:auto; margin:0px; font-family:'Times New Roman'; font-size:14px">
-&nbsp;</div>
-<div><br>
-</div>
-<br>
-<p></p>
-<p><strong><span style="font-size:18px">分析：树状数组的典型应用</span></strong></p>
-<p><strong><span style="font-size:18px">tree[ ] 存放树状数组，c[ ] 存放原始数据 ,</span></strong></p>
-<p><strong><span style="font-size:18px">tree[1] = c[1]; &nbsp;&nbsp;</span></strong></p>
-<p><strong><span style="font-size:18px">tree[2] = c[1]&#43;c[2]; &nbsp; &nbsp;&nbsp;</span><span style="font-size:18px">&nbsp;// lowbit( 2 ) = 2;</span></strong></p>
-<p><strong><span style="font-size:18px">tree[3] = c[3];</span></strong></p>
-<p><strong><span style="font-size:18px">tree[4] = c[1]&#43;c[2]&#43;c[3]&#43;c[4]; &nbsp;&nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit( 4 ) = 4 ;</span></strong></span></strong></p>
-<p><strong><span style="font-size:18px">tree[5] = c[5];</span></strong></p>
-<p><strong><span style="font-size:18px">tree[6] = c[5]&#43;c[6]; &nbsp;&nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit( 6 ) = 2;</span></strong></span></strong></p>
-<p><strong><span style="font-size:18px">tree[7] = c[7];</span></strong></p>
-<p><strong><span style="font-size:18px">tree[8] = c[1]&#43;c[2]&#43;c[3]&#43;c[4]&#43;c[5]&#43;c[6]&#43;c[7]&#43;c[8]; &nbsp; &nbsp;<strong><span style="font-size:18px">&nbsp;// lowbit(8 ) = 8;</span></strong></span></strong></p>
-<p><strong><span style="font-size:18px">;;;;;一次AC&nbsp;</span></strong></p>
-<p><br>
-</p>
-<p><pre name="code" class="cpp">/*
- 2013/08/04 22:53
- author :zyh
- 树状数组 
-*/
-
-#define N 50002
-#include &lt;iostream&gt;
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;string.h&gt;
-using namespace std;
-
-int n;
-int tree[N],c[N];
-
-int lowbit(int x)
-{
-	return x&amp;(-x);//返回值代表tree[i] 里面 包含 c[]里面的几项
-}
-
-void build_tree()
-{
-	int i,j;
-	for(i=1;i&lt;=n;i++)
-	{
-		if(i&amp;1) tree[i] = c[i];    //奇数
-		else
-		{
-			int temp = 0;
-			for(j=i-lowbit(i)+1;j&lt;=i;j++)
-			{
-				temp += c[j];
-			}
-			tree[i] = temp;
-		} 	
-	}
-	
-//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
-}
-
-void Add(int a,int b)
-{
-	int i;
-	for(i=a;i&lt;=n;)
-	{
-	 	tree[i] += b;
-	 	i += lowbit(i);
-	}
-//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
-}
-
-void Sub(int a,int b)
-{
-	int i;
-	for(i=a;i&lt;=n;)
-	{
-	 	tree[i] -= b;
-	 	i += lowbit(i);
-	}
-//	for(i=1;i&lt;=n;i++)  printf(&quot;%d &quot;,tree[i]);
-}
-
-int Sum(int b)
-{
-	int i,sum=0;
-	for(i=b;i&gt;=1;)
-	{
-		sum += tree[i];
-		i -= lowbit(i); 
-	}
-	return sum;
-}
-
-int main()
-{
-	int t,i,j,a,b;
-	char s[6];
-	scanf(&quot;%d&quot;,&amp;t);
-	for(i=1;i&lt;=t;i++)
-	{
-		memset(tree,0,sizeof(tree));
-		scanf(&quot;%d&quot;,&amp;n);
-		for(j=1;j&lt;=n;j++)
-			scanf(&quot;%d&quot;,&amp;c[j]);
-		build_tree();
-		
-		printf(&quot;Case %d:\n&quot;,i);
-		while(scanf(&quot;%s&quot;,s) &amp;&amp; s[0]!= 'E')
-		{
-			scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
-			
-			switch(s[0])
-			{
-				case 'A':Add(a,b);break;
-				case 'S':Sub(a,b);break;
-				case 'Q':printf(&quot;%d\n&quot;,Sum(b)-Sum(a-1));break;
-			}
-		}
-	}
-	return 0;
-}</pre><br>
-<br>
-</p>
-<p><br>
-</p>
-<p><br>
-</p>
-<p><br>
-</p>
 
       
     </div>
