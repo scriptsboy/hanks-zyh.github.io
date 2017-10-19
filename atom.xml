@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://hanks.pub/"/>
-  <updated>2017-10-11T10:43:41.386Z</updated>
+  <updated>2017-10-19T10:13:33.925Z</updated>
   <id>http://hanks.pub/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://hanks.pub/2017/10/11/android-night-mode/"/>
     <id>http://hanks.pub/2017/10/11/android-night-mode/</id>
     <published>2017-10-11T09:11:50.000Z</published>
-    <updated>2017-10-11T10:43:41.386Z</updated>
+    <updated>2017-10-19T10:13:33.925Z</updated>
     
     <content type="html"><![CDATA[<p>比较几种夜间模式（主题切换）的实现<br><a id="more"></a></p>
 <h3 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h3><p>系统提供的 setTheme， 然后走 recreate ，方法比较简单粗暴。缺点：recreate 导致界面会闪烁。</p>
@@ -28,6 +28,7 @@
 <h3 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h3><p>先 setTheme ，然后便利界面 ui，每个被标记的 view 重新设置颜色。优点：界面会闪烁。缺点需要标记view，遍历 view，还有考虑 view 缓存状态的刷新。</p>
 <h3 id="第四种"><a href="#第四种" class="headerlink" title="第四种"></a>第四种</h3><p>先 setTheme， 然后重建 fragment，通过 <code>Fragment.SavedState state =  FragmentManager().saveFragmentInstanceState(oldFragment)</code> 保存旧的fragment状态，然后重新创建新的 fragment，最后 <code>fragment.setInitialSavedState(state);</code> ，再恢复状态。这种情况一般就是主界面一个MainActivity，然后界面套一个 MainFragment，这样，只需重新创建 fragment 就可以达到启用新的 theme。需要注意的地方： 保存数据的时候，大的数据不能通过 onSaveInstanceState 保存，一方面 bundle可能会超过大学，另一方面会有序列化/反序列化问题，可直接放在成员变量中。可参考官方文档<a href="https://developer.android.com/guide/topics/resources/runtime-changes.html#RetainingAnObject" target="_blank" rel="external">在配置变更期间保留对象</a></p>
 <p><img src="http://o6epsoek1.bkt.clouddn.com/S71011-17573903%20%281%29.gif?imageView/2/w/360/h/640/q/80" alt=""></p>
+<p>使用系统提供的 setTheme 来切换主题有个好处, 就是可以直接在 Android Studio 中编写 xml 时预览效果.<br><img src="http://o6epsoek1.bkt.clouddn.com/themedemo.gif?imageView/2/w/360/h/640/q/80" alt=""></p>
 <blockquote>
 <p>文章来自： <a href="http://hanks.pub">http://hanks.pub</a></p>
 </blockquote>
